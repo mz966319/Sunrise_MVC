@@ -1,0 +1,45 @@
+﻿@model List<Student>
+
+<div class="container card shadow border-0 mt-4">
+    <div class="row pt-4 pb-3">
+        <div class="col-6">
+            <h2 class="text-primary">Students List</h2>
+
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Student" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Create New Student
+                </a>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Student ID
+                </th>
+                <th>
+                    Student name EN
+                </th>
+
+                <th>
+                    Grade
+                </th>
+                <th>
+                    Class
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var student in Model.OrderBy(u=>u.StudentNameEN)){
+                <tr>
+                    <td>@student.StudentID</td>
+                    <td>@student.StudentNameEN</td>
+                    <td>@student.CurrentGradeID</td>
+                    <td>@student.CurrentClassID</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
