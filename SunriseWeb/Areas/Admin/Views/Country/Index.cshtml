@@ -1,0 +1,103 @@
+﻿@model CountryNationalityViewModel
+
+<div class="row">
+    <div class="col-5">
+        <div class="card container">
+            <div class="pt-4 pb-3">
+                <div >
+                    <h2 class="text-primary">Countries List</h2>
+                </div>
+
+
+                <div >
+                    <a asp-controller="Country" asp-action="UpsertCountry" class="btn btn-primary" style="width:100%">
+                        <i class="bi bi-plus-circle"></i> Add Country
+                    </a>
+                </div>
+
+            </div>
+
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Country Name</th>
+                        <th>اسم الدولة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var country in Model.CountryList.OrderBy(u => u.CountryID))
+                    {
+                        <tr>
+                            <td>@country.CountryID</td>
+                            <td>@country.CountryNameEN</td>
+                            <td>@country.CountryNameAR</td>
+
+
+
+                            <td> 
+                                <div class="w-75 btn-group" role="group">
+                                    <a asp-controller="Country" asp-action="UpsertCountry" asp-route-id="@country.CountryID" class="btn btn-primary" style="height:40px">
+                                        <i class="bi bi-pencil-square" style="position: relative; top:-8px;"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+    <div class="col-7">
+        <div class="card container">
+            <div class="pt-4 pb-3">
+                <div class="center">
+                    <h2 class="text-primary text-gray">Nationalities List</h2>
+                </div>
+
+
+                <div>
+                    <a asp-controller="Country" asp-action="UpsertNationality" class="btn btn-primary" style="width:100%">
+                        <i class="bi bi-plus-circle"></i> Add Nationality
+                    </a>
+                </div>
+
+            </div>
+
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nationality Name</th>
+                        <th>الجنسية للبنين</th>
+                        <th>الجنسية للبنات</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var nationality in Model.NationalityList.OrderBy(u => u.NationalityID))
+                    {
+                        <tr>
+                            <td>@nationality.NationalityID</td>
+                            <td>@nationality.NationalityEN</td>
+                            <td>@nationality.NationalityARMale</td>
+                            <td>@nationality.NationalityARFemale</td>
+
+
+                            <td>
+                                <div class="w-75 btn-group" role="group">
+                                    <a asp-controller="Country" asp-action="UpsertNationality" asp-route-id="@nationality.NationalityID" class="btn btn-primary" style="height:40px">
+                                        <i class="bi bi-pencil-square" style="position: relative; top:-8px;"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+</div>

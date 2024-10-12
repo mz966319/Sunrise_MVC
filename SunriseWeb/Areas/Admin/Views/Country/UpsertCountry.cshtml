@@ -1,0 +1,53 @@
+﻿@model Country
+<div class="row card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class=" py-2">@(Model.CountryID != 0 ? "Update" : "Create") Country</h2>
+            </div>
+
+            @* <div asp-validation-summary="All"></div> *@
+
+        </div>
+    </div>
+    <div class="row card-body p-4">
+        <form method="post" class="row">
+            <input asp-for="CountryID" hidden />
+            <div class="border p-3">
+                <div class="row">
+                    <div class="col-4 mb-3">
+                        <label class="form-label" asp-for="CountryNameEN"></label>
+                        <input asp-for="CountryNameEN" class="form-control" placeholder="">
+                        <span asp-validation-for="CountryNameEN" class="text-danger"></span>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <label class="form-label" asp-for="CountryNameAR"></label>
+                        <input asp-for="CountryNameAR" type="text" class="form-control" placeholder="">
+                        <span asp-validation-for="CountryNameAR" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class=" pt-2">
+                    @if (Model.CountryID != 0)
+                    {
+                        <button type="submit" class="btn btn-outline-primary btn-lg " style="width:25%">Update</button>
+
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-outline-primary btn-lg " style="width:25%">Create</button>
+
+                    }
+                    <a asp-controller="Country" asp-action="Index" class="btn btn-outline-secondary float-end">Back</a>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+}

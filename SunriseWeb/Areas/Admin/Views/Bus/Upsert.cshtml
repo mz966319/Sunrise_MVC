@@ -1,0 +1,79 @@
+﻿@model Bus
+<div class="row card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class=" py-2">@(Model.BusID != 0 ? "Update" : "Create") Bus</h2>
+            </div>
+
+            @* <div asp-validation-summary="All"></div> *@
+
+        </div>
+    </div>
+    <div class="row card-body p-4">
+        <form method="post" class="row">
+            <input asp-for="BusID" hidden />
+            <div class="border p-3">
+                <div class="row">
+                    <div class="col-4 mb-3">
+                        <label class="form-label" asp-for="DriverName"></label>
+                        <input asp-for="DriverName" class="form-control" placeholder="">
+                        <span asp-validation-for="DriverName" class="text-danger"></span>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <label class="form-label" asp-for="DriverPhone"></label>
+                        <input asp-for="DriverPhone" type="text" class="form-control" placeholder="">
+                        <span asp-validation-for="DriverPhone" class="text-danger"></span>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <label class="form-label" asp-for="BusType"></label>
+                        <input asp-for="BusType" type="text" class="form-control" placeholder="">
+                        <span asp-validation-for="BusType" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 mb-3">
+                        <label class="form-label" asp-for="BusNumber"></label>
+                        <input asp-for="BusNumber" class="form-control" placeholder="">
+                        <span asp-validation-for="BusNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <label class="form-label" asp-for="BusPath"></label>
+                        <input asp-for="BusPath" type="text" class="form-control" placeholder="">
+                        <span asp-validation-for="BusPath" class="text-danger"></span>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <label class="form-label" asp-for="BusPlate"></label>
+                        <input asp-for="BusPlate" type="text" class="form-control" placeholder="">
+                        <span asp-validation-for="BusPlate" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                
+
+                <div class=" pt-2">
+                    @if (Model.BusID != 0)
+                    {
+                        <button type="submit" class="btn btn-outline-primary btn-lg " style="width:25%">Update</button>
+
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-outline-primary btn-lg " style="width:25%">Create</button>
+
+                    }
+                    <a asp-controller="Bus" asp-action="Index" class="btn btn-outline-secondary float-end">Back</a>
+
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+}

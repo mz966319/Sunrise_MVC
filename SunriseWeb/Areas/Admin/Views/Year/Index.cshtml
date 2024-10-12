@@ -1,0 +1,58 @@
+﻿@model List<Year>
+
+
+<div class="card container">
+    <div class="row pt-4 pb-3">
+        <div class="col-6">
+            <h2 class="text-primary">Years List</h2>
+        </div>
+
+
+        <div >
+            <a asp-controller="Year" asp-action="Upsert" class="btn btn-primary" style="width:100%">
+                <i class="bi bi-plus-circle"></i> Add New Year
+            </a>
+        </div>
+
+    </div>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Year ID</th>
+                <th>Academic Year</th>
+                <th>السنة الدراسية</th>
+                <th>Addmission Date</th>
+                <th>Active</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var year in Model.OrderBy(u => u.YearID))
+            {
+                <tr>
+                    <td>@year.YearID</td>
+                    <td>@year.YearEN</td>
+                    <td>@year.YearAR</td>
+                    <td>@year.AddmissionDate</td>
+                    @if (year.ActiveFlag)
+                    {
+                        <td><i class="bi bi-check-circle-fill" style="position: relative; top:6px;"></i></td>
+                    }
+                    else
+                    {
+                        <td><i class="bi bi-x-circle-fill" style="position: relative; top:6px;"></i></td>
+                    }
+                    @* <td>@year.ActiveFlag</td> *@
+
+                    <td> 
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-controller="Year" asp-action="Upsert" asp-route-id="@year.YearID" class="btn btn-primary" style="height:20px">
+                                <i class="bi bi-pencil-square" style="position: relative; top:-10px;"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

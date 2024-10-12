@@ -1,0 +1,57 @@
+﻿@model List<Bus>
+
+
+<div class="card container">
+    <div class="row pt-4 pb-3">
+        <div class="col-6">
+            <h2 class="text-primary">Busses List</h2>
+        </div>
+
+
+        <div >
+            <a asp-controller="Bus" asp-action="Upsert" class="btn btn-primary" style="width:100%">
+                <i class="bi bi-plus-circle"></i> Add New Bus
+            </a>
+        </div>
+
+    </div>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Bus ID</th>
+                <th>Bus number</th>
+                <th>Driver Name</th>
+                <th>Driver Phone</th>
+                <th>Bus Plate</th>
+                <th>Bus Path</th>
+                <th>Bus Type</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bus in Model.OrderBy(u => u.BusID))
+            {
+                <tr>
+                    <td>@bus.BusID</td>
+                    <td>@bus.BusNumber</td>
+                    <td>@bus.DriverName</td>
+                    <td>@bus.DriverPhone</td>
+                    <td>@bus.BusPlate</td>
+                    <td>@bus.BusPath</td>
+                    <td>@bus.BusType</td>
+
+
+                    <td> 
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-controller="Bus" asp-action="Upsert" asp-route-id="@bus.BusID" class="btn btn-primary" style="height:40px">
+                                <i class="bi bi-pencil-square" style="position: relative; top:-8px;"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,14 @@
+﻿using Sunrise.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Sunrise.DataAccess.Repository.IRepository
+{
+    public interface IYearManagerRepository : IRepository<YearManager>
+    {
+        void Update(YearManager yearManager);
+    }
+}

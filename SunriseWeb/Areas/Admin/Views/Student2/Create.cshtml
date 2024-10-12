@@ -1,0 +1,166 @@
+﻿@model Student
+
+
+<form method="post">
+    <div class="border p-3 mt-1 card shadow border-0 mt-4">
+        <div class="row">
+            <h2 class="text-primary">Create Student</h2>
+            <hr/>
+        </div>
+        @* <div class="row">
+            <div class="col-2">
+                <label asp-for="StudentID"></label>
+                <input class="form-control form-control-lg pr-4" asp-for="StudentID" disabled />
+            </div>
+        </div> *@
+
+        <div class="row pt-2">
+            <div class="col-6 mb-1">
+                <label asp-for="StudentNameEN"></label>
+                <input  class="form-control form-control-lg" asp-for="StudentNameEN" />
+            </div>
+            <div class="col-6 mb-1 text-end">
+                <label asp-for="StudentNameAR"></label>
+                <input asp-for="StudentNameAR" class="form-control form-control-lg" style="text-align: right;" />
+            </div>
+        </div>
+        
+        
+        <div class="row pt-1 pb-1">
+            <div class="col-3 mb-1 ">
+                <label class="form-label" asp-for="NationalityID"></label>
+                <select class="form-select" asp-for="NationalityID">
+                    <option></option>
+                    <option>Nigerian</option>
+                    <option>Egyptian</option>
+                    <option>Saudi</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="col-5 mb-1 mt-2">
+                <label asp-for="Passport"></label>
+                <input  class="form-control form-control-lg" asp-for="Passport"/>
+            </div>
+            <div class="col-4 mb-1 mt-2 ">
+                <label asp-for="PassportEndDate"></label>
+                <input type="date" class="form-control form-control-lg" asp-for="PassportEndDate" />
+            </div>
+        </div>
+        <div class="row pt-1 pb-1">
+            <div class="col-6 mb-1 mt-1">
+                <label asp-for="IDNumber"></label>
+                <input asp-for="IDNumber" class="form-control form-control-lg" />
+            </div>
+            <div class="col-6 mb-1 mt-1 ">
+                <label asp-for="IDEndDate"></label>
+                <input type="date" asp-for="IDEndDate" class="form-control form-control-lg" />
+            </div>
+        </div>
+
+        <div class="row pt-1 pb-1">
+            <div class="col-4  mt-2 ">
+                <label>Date of Birth</label>
+                <input asp-for="BirthDate" type="date" class="form-control form-control-lg"/>
+            </div>
+            <div class="col-4 ">
+                <label class="form-label">Birth Place</label>
+                <select class="form-select" asp-for="BirthPlaceID">
+                    <option></option>
+                    <option>Nigerian</option>
+                    <option>Egyptian</option>
+                    <option>Saudi</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="col-4 ">
+                <label class="form-label">Gender</label>
+                <select class="form-select" asp-for="Gender">
+                    <option></option>
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+            </div>
+            
+        </div>
+        <div class="row pt-1 pb-1">
+           
+            <div class="col-4  mt-2 ">
+                <label asp-for="ParentPhones2"></label>
+                <input type="text" class="form-control form-control-lg" asp-for="ParentPhone1"/>
+            </div>
+            <div class="col-4  mt-2 ">
+                <label asp-for="ParentPhones2"></label>
+                <input type="text" class="form-control form-control-lg" asp-for="ParentPhones2"/>
+            </div>
+            <div class="col-4  mt-2 ">
+                <label>Admission Date</label>
+                <input type="date" class="form-control form-control-lg" asp-for="AdmissionDate"/>
+            </div>
+            
+
+        </div>
+
+        <div class="row pt-1 pb-1">
+
+            <div class="col-5 col-md-4">
+                <label class="form-label">Current Grade</label>
+                <select class="form-select form-select-lg">
+                    <option></option>
+                    <option value="1">Grade 1</option>
+                    <option value="2">Grade 2</option>
+                    <option value="3">Grade 3</option>
+                </select>
+            </div>
+            <div class="col-5 col-md-4">
+                <label class="form-label">Class</label>
+                <select class="form-select" asp-for="CurrentClassID">
+                    <option></option>
+                    <option value="1">BA</option>
+                    <option value="2">BB</option>
+                </select>
+            </div>
+            <div class="col-2 col-md-4 mt-4 pt-4">
+                <div class="btn-group" role="group" aria-label="Student Status">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="checked">
+                    <label class="btn btn-outline-primary btn-sm" for="btnradio1">Active</label>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                    <label class="btn btn-outline-primary btn-sm" for="btnradio2">Discontinued</label>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                    <label class="btn btn-outline-primary btn-sm" for="btnradio3">Withdrawal</label>
+                </div>
+            </div>
+            @*< div class="col-4 col-sm-3 mt-4 pt-2 d-flex justify-content-center">
+                <div class="btn-group" role="group" aria-label="Student Status" style="max-width: 200px;">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="checked">
+                    <label class="btn btn-outline-primary" for="btnradio1">Active</label>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio2">Discontinued</label>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio3">Withdrawal</label>
+                </div>
+            </div> *@
+
+
+
+        </div>
+        <div class="row pt-2">
+            <div class="col-5 mb-1">
+                <label>Previous School</label>
+                <input type="text" class="form-control form-control-lg" />
+            </div>
+            <div class="col-5 mb-1 text-end">
+                <label>المدرسة السابقة</label>
+                <input type="text" class="form-control form-control-lg" style="text-align: right;" />
+            </div>
+            <div class="col-2 mb-1 text-end">
+                <input type="checkbox" class="btn-check" id="btncheck1"  autocomplete="off">
+                <label class="btn btn-warning btn- mt-4" for="btncheck1" style="width:100%">Auditor</label>
+            </div>
+        </div>
+        <div class="form-group mb-4 mt-4 ">
+            <button type="submit" class="btn btn-outline-primary btn-lg mt-4 mb-4 pb-4 " style="width:25%">Create</button>
+            <a asp-controller="Student" asp-action="Index" class="btn btn-outline-secondary mt-4 mb-4 pb-4 float-end">Back to List</a>
+
+        </div>
+    </div>
+</form>

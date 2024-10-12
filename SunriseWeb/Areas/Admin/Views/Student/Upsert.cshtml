@@ -1,0 +1,298 @@
+﻿@model StudentViewModel
+<div class="row card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="py-2">@(Model.Student != null && Model.Student.StudentID != 0 ? "Update" : "Create") Student</h2>
+            </div>
+            <!-- <div asp-validation-summary="All"></div> -->
+        </div>
+    </div>
+    <div class="card-body p-3">
+        <form method="post" class="row g-3">
+            <input asp-for="Student.StudentID" type="hidden" />
+            <div class="col-12 border p-3">
+                <!-- First Row -->
+                <div class="row">
+                    <div class="col-12 col-sm-6 mb-3">
+                        <label asp-for="Student.MatexParentID" class="form-label"></label>
+                        <input class="form-control form-control-lg" asp-for="Student.MatexParentID" />
+                        <span asp-validation-for="Student.MatexParentID" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 col-sm-6 mb-3 text-end">
+                        <label asp-for="Student.MatexStudentID" class="form-label"></label>
+                        <input asp-for="Student.MatexStudentID" class="form-control form-control-lg" />
+                        <span asp-validation-for="Student.MatexStudentID" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Second Row -->
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <!-- Changed to responsive columns -->
+                        <label asp-for="Student.StudentNameEN" class="form-label"></label>
+                        <input class="form-control form-control-lg" asp-for="Student.StudentNameEN" />
+                        <span asp-validation-for="Student.StudentNameEN" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3 text-end">
+                        <!-- Changed to responsive columns -->
+                        <label asp-for="Student.StudentNameAR" class="form-label"></label>
+                        <input asp-for="Student.StudentNameAR" class="form-control form-control-lg text-end" />
+                        <span asp-validation-for="Student.StudentNameAR" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Grade, Class, Previous School -->
+                <div class="row">
+                    <!-- Current Grade Dropdown -->
+                    <div class="col-12 col-md-4 mb-3">
+                        <label class="form-label" for="gradeSelect">Current Grade</label>
+                        <select asp-for="GradeID"
+                                id="GradeID"
+                                asp-items="Model.GradeList"
+                                class="form-select form-select-lg"
+                                id="gradeSelect">
+                            <option disabled selected>--Select Grade--</option>
+                        </select>
+@*                         <span asp-validation-for="Student.GradeID" class="text-danger"></span>
+ *@                    </div>
+
+                    <!-- Class Dropdown -->
+                    <div class="col-12 col-md-4 mb-3">
+                        <label class="form-label" for="classSelect">Class</label>
+                        <select id="classID"
+                                asp-for="@Model.Student.CurrentClassID"
+                            asp-items="Model.ClassList"
+                            class="form-select form-select-lg">
+                            <option disabled selected>--Select Class--</option>
+                        </select>
+                        <span asp-validation-for="Student.CurrentClassID" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12 col-md-4 mb-3">
+                        <!-- Changed to responsive columns -->
+                        <label asp-for="Student.PreviousSchool" class="form-label"></label>
+                        <select asp-items="Model.PreviousSchoolList" asp-for="Student.PreviousSchoolID" class="form-select form-select-lg">
+                            <option disabled selected>--Select Previous School--</option>
+                        </select>
+                        <span asp-validation-for="Student.PreviousSchoolID" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Nationality, Passport, Passport End Date -->
+                <div class="row">
+                    <div class="col-12 col-md-4 mb-3">
+                        <!-- Changed to responsive columns -->
+                        <label asp-for="Student.NationalityID" class="form-label"></label>
+                        <select asp-items="Model.NationalityList" asp-for="Student.NationalityID" class="form-select form-select-lg">
+                            <option disabled selected>--Select Nationality--</option>
+                        </select>
+                        <span asp-validation-for="Student.NationalityID" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <!-- Changed to responsive columns -->
+                        <label asp-for="Student.Passport" class="form-label"></label>
+                        <input asp-for="Student.Passport" class="form-control form-control-lg" />
+                        <span asp-validation-for="Student.Passport" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <!-- Changed to responsive columns -->
+                        <label asp-for="Student.PassportEndDate" class="form-label"></label>
+                        <input type="date" asp-for="Student.PassportEndDate" class="form-control form-control-lg" />
+                        <span asp-validation-for="Student.PassportEndDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- ID Number and ID End Date -->
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <!-- Changed to responsive columns -->
+                        <label asp-for="Student.IDNumber" class="form-label"></label>
+                        <input asp-for="Student.IDNumber" class="form-control form-control-lg" />
+                        <span asp-validation-for="Student.IDNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <!-- Changed to responsive columns -->
+                        <label asp-for="Student.IDEndDate" class="form-label"></label>
+                        <input type="date" asp-for="Student.IDEndDate" class="form-control form-control-lg" />
+                        <span asp-validation-for="Student.IDEndDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Birth Date, Birth Place, Gender -->
+                <div class="row">
+                    <div class="col-12 col-md-4 mb-3">
+                        <!-- Changed to responsive columns -->
+                        <label class="form-label">Date of Birth</label>
+                        <input asp-for="Student.BirthDate" type="date" class="form-control form-control-lg" />
+                        <span asp-validation-for="Student.BirthDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <label class="form-label">Birth Place</label>
+                        <select asp-items="Model.CountryList" asp-for="Student.BirthPlaceID" class="form-select form-select-lg">
+                            <option disabled selected>--Select Birth Place--</option>
+                        </select>
+                        <span asp-validation-for="Student.BirthPlaceID" class="text-danger"></span>
+
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <label class="form-label">Gender</label>
+                        <select class="form-select form-select-lg" asp-for="Student.Gender">
+                            <option disabled selected>--Select Gender--</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                        <span asp-validation-for="Student.Gender" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Parent Phones and Admission Date -->
+                <div class="row">
+                    <div class="col-12 col-md-3 mb-3">
+                        <label asp-for="Student.ParentPhone1" class="form-label"></label> 
+                        <input type="text" class="form-control form-control-lg" asp-for="Student.ParentPhone1" />
+                        <span asp-validation-for="Student.ParentPhone1" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 col-md-3 mb-3">
+                        <label asp-for="Student.ParentPhones2" class="form-label"></label>
+                        <input type="text" class="form-control form-control-lg" asp-for="Student.ParentPhones2" />
+                        <span asp-validation-for="Student.ParentPhones2" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 col-md-3 mb-3">
+                        <label class="form-label">Admission Date</label>
+                        <input type="date" class="form-control form-control-lg" asp-for="Student.AdmissionDate" />
+                        <span asp-validation-for="Student.AdmissionDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 col-md-3 mb-3">
+                        <label asp-for="Student.StudentPhone" class="form-label"></label>
+                        <input type="text" class="form-control form-control-lg" asp-for="Student.StudentPhone" />
+                        <span asp-validation-for="Student.StudentPhone" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Auditor Checkbox and Status Radio Buttons -->
+                <div class="row pt-2">
+                    <div class="col-1"></div>
+                    <!-- Auditor Checkbox -->
+                    <div class="col-3 col-sm-4 col-md-4 col-lg-2 mb-3 mt-3">
+                        <input asp-for="Student.AuditorFlag" type="checkbox" class="btn-check" id="btncheck1">
+                        <label class="btn btn-warning w-100 mt-2" for="btncheck1">Auditor</label> <!-- Auditor Checkbox -->
+                    </div>
+                    <div class="col-1"></div>
+                    <!-- Status Radio Buttons -->
+                    <div class="col-4 mb-3">
+                        <fieldset>
+                            <legend class="mt-2">Status</legend>
+                            <div class="form-check form-check-inline">
+                                <input asp-for="Student.StudentActiveFlag" class="form-check-input" type="radio" id="statusActive" value="0" style="transform: scale(1.5); margin-right: 10px;" />
+                                <label class="form-check-label" for="statusActive">Active</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input asp-for="Student.StudentActiveFlag" class="form-check-input" type="radio" id="statusDiscontinued" value="1" style="transform: scale(1.5); margin-right: 10px;" />
+                                <label class="form-check-label" for="statusDiscontinued">Discontinued</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input asp-for="Student.StudentActiveFlag" class="form-check-input" type="radio" id="statusWithdrawal" value="2" style="transform: scale(1.5); margin-right: 10px;"/>
+                                <label class="form-check-label" for="statusWithdrawal">Withdrawal</label>
+                            </div>
+                        </fieldset>
+
+                    </div>
+
+                    <!-- Bus Checkbox -->
+                    <div class="col-3 col-sm-4 col-md-4 col-lg-2 mb-3 mt-3">
+                        @* <input asp-for="StaticFlag" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"> *@
+                        <input asp-for="Student.BusFlag" type="checkbox" class="btn-check" id="btncheck2">
+                        <label class="btn btn-info w-100 mt-2" for="btncheck2">Bus</label> <!-- Bus Checkbox -->
+                    </div>
+
+                    
+
+                </div>
+                <!-- Bus Dropdowns (Initially Hidden) -->
+                <div class="row d-none" id="busOptions">
+                    <!-- Changed: Added 'd-none' to hide initially and 'busOptions' ID -->
+                    <div class="mb-3 col-6">
+                        @* <input asp-for="Student.BusID" type="hidden" id="busSelect1Hidden" /> *@
+                        <label for="busSelect1" class="form-label">Bus Number</label>
+                        <select asp-for="Student.BusID" asp-items="Model.BusList" class="form-select form-select-lg" id="busSelect1" disabled>
+                            <option disabled selected>--Select Bus--</option>
+
+                        </select>
+                    </div>
+                    <div class="mb-3 col-6">
+                        @* <input asp-for="Student.BusSubscription" type="hidden" /> *@
+                        <label asp-for="Student.BusSubscription" for="busSelect2" class="form-label">Subscription</label>
+                        <select asp-for="Student.BusSubscription" class="form-select form-select-lg" id="busSelect2" disabled>
+                            <option disabled selected>--Select Subscription--</option>
+                            <option>ذهاب</option>
+                            <option>اياب</option>
+                            <option>ذهاب و اياب</option>
+                        </select>
+                    </div>
+                </div>
+
+               
+
+                <!-- Submit and Back Buttons -->
+                <div class="row pt-3">
+                    <div class="col-12">
+                        <!-- Full width for buttons -->
+                        @if (Model.Student.StudentID != 0)
+                        {
+                            <input asp-for="Student.CreatedBy" type="hidden" />
+
+                            <input asp-for="Student.UpdatedBy" value="@Model.CurrentUser" type="hidden"/>
+                            <input asp-for= "Student.DateUpdated" value = "@DateTime.Now" type = "hidden" />
+
+                            <button type="submit" class="btn btn-outline-primary btn-lg w-100 w-sm-auto me-2">Update</button> <!-- Added responsive width classes -->
+                        }
+                        else
+                        {
+                            <input asp-for="Student.CreatedBy" value="@Model.CurrentUser" type="hidden" />
+                            <input asp-for="Student.DateCreated" value="@DateTime.Now" type="hidden" />
+
+                            <button type="submit" class="btn btn-outline-primary btn-lg w-100 w-sm-auto me-2">Create</button> <!-- Added responsive width classes -->
+                        }
+                        <a asp-controller="Student" asp-action="Index" class="btn btn-outline-secondary btn-lg w-100 w-sm-auto mt-2 mt-sm-0">Back</a> <!-- Added responsive width and margin classes -->
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+        <script src="~/js/student.js"></script>
+                <script >
+                    // $(document).ready(function () {
+                    //     $('#GradeID').on('change', function () {
+                    //         var gradeID = $(this).val();
+                    //         var classList = $('#classID');
+                    //         classList.empty();
+                    //         classList.append('<option disabled selected>--Select Class--</option>');
+                    //         if (gradeID !== '') {
+                    //             $.ajax({
+                    //                 url: '/Admin/Student/GetClassByGradeId?gradeId=' + gradeID,
+                    //                 success: function (classes) {
+                    //                     $.each(classes, function (i, classItem) {
+                    //             classList.append($('<option></option>').attr('value', classItem.classID).text(classItem.className));
+                    //                     });
+                    //                 },
+                    //                 error: function () {
+                    //                     alert('something went wrong!');
+                    //                 }
+                    //             });
+                    //         }
+                    //     });
+                    // });
+                
+                </script>
+
+    
+}

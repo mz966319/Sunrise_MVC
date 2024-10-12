@@ -1,0 +1,55 @@
+﻿@model List<Subject>
+
+
+<div class="card container">
+    <div class="row pt-4 pb-3">
+        <div class="col-6">
+            <h2 class="text-primary">Subjects List</h2>
+        </div>
+
+
+        <div >
+            <a asp-controller="Subject" asp-action="Upsert" class="btn btn-primary" style="width:100%">
+                <i class="bi bi-plus-circle"></i> Add New Subject
+            </a>
+        </div>
+
+    </div>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Subject ID</th>
+                <th>Subject Name EN</th>
+                <th>اسم المادة بالعربي</th>
+                <th>Noor ID</th>
+                <th>Noor Name</th>
+                <th>Static</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var subject in Model.OrderBy(u => u.SubjectID))
+            {
+                <tr>
+                    <td>@subject.SubjectID</td>
+                    <td>@subject.SubjectNameEN</td>
+                    <td>@subject.SubjectNameAR</td>
+                    <td>@subject.NoorID</td>
+                    <td>@subject.NoorName</td>
+                    
+                    <td>@(subject.StaticFlag? "Yes":"No")</td>
+
+                    <td> 
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-controller="Subject" asp-action="Upsert" asp-route-id="@subject.SubjectID" class="btn btn-primary" style="height:40px">
+                                <i class="bi bi-pencil-square" style="position: relative; top:-8px;"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

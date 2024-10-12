@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunriseWeb", "SunriseWeb\SunriseWeb.csproj", "{2B1E1A81-8E6C-46A2-A653-09E1313E9410}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SunriseWeb", "SunriseWeb\SunriseWeb.csproj", "{2B1E1A81-8E6C-46A2-A653-09E1313E9410}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.DataAccess", "Sunrise.DataAccess\Sunrise.DataAccess.csproj", "{10F8336A-3362-43B7-907F-BB85300B6A1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.Models", "Sunrise.Models\Sunrise.Models.csproj", "{4CE4092D-DA8B-431C-8B23-BF004069D236}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.Utility", "Sunrise.Utility\Sunrise.Utility.csproj", "{C721A885-C1F8-4EBE-87D4-52779477D6E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{2B1E1A81-8E6C-46A2-A653-09E1313E9410}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B1E1A81-8E6C-46A2-A653-09E1313E9410}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B1E1A81-8E6C-46A2-A653-09E1313E9410}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10F8336A-3362-43B7-907F-BB85300B6A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10F8336A-3362-43B7-907F-BB85300B6A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10F8336A-3362-43B7-907F-BB85300B6A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10F8336A-3362-43B7-907F-BB85300B6A1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CE4092D-DA8B-431C-8B23-BF004069D236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CE4092D-DA8B-431C-8B23-BF004069D236}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CE4092D-DA8B-431C-8B23-BF004069D236}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CE4092D-DA8B-431C-8B23-BF004069D236}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C721A885-C1F8-4EBE-87D4-52779477D6E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C721A885-C1F8-4EBE-87D4-52779477D6E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C721A885-C1F8-4EBE-87D4-52779477D6E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C721A885-C1F8-4EBE-87D4-52779477D6E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

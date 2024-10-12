@@ -1,0 +1,58 @@
+﻿@model Grade
+
+<div class="row card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient text-center py-3">
+        <h2 class="text-white">Create Grade</h2>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <div class="col-12">
+                <div class="mb-3">
+                    <label class="form-label" asp-for="GradeName">Grade Name</label>
+                    <input asp-for="GradeName" type="text" class="form-control" placeholder="Enter Grade Name" required>
+                    <span asp-validation-for="GradeName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="SchoolName">School Name</label>
+                    <select class="form-select" asp-for="SchoolName" required>
+                        <option value="">Select School</option>
+                        <option value="B">School B</option>
+                        <option value="G">School G</option>
+                    </select>
+                    <span asp-validation-for="SchoolName" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label" asp-for="CertificateNameEN">Certificate Name (EN)</label>
+                        <input asp-for="CertificateNameEN" type="text" class="form-control" placeholder="Enter Certificate Name" required>
+                        <span asp-validation-for="CertificateNameEN" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-6 mb-3">
+                        <label class="form-label" asp-for="CertificateNameAR">Certificate Name (AR)</label>
+                        <input asp-for="CertificateNameAR" type="text" class="form-control" placeholder="Enter Certificate Name" required>
+                        <span asp-validation-for="CertificateNameAR" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="GradeLevel">Grade Level</label>
+                    <input asp-for="GradeLevel" type="number" class="form-control" placeholder="Enter Grade Level" required>
+                    <span asp-validation-for="GradeLevel" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between pt-2">
+                    <button type="submit" class="btn btn-outline-primary" style="width: 45%;">Create</button>
+                    <a asp-controller="Grade" asp-action="Index" class="btn btn-outline-secondary" style="width: 45%;">Back</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

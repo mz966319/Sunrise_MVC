@@ -1,0 +1,74 @@
+﻿@model Subject
+<div class="row card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class=" py-2">@(Model.SubjectID != 0 ? "Update" : "Create") Subject</h2>
+            </div>
+
+            @* <div asp-validation-summary="All"></div> *@
+
+        </div>
+    </div>
+    <div class="row card-body p-4">
+        <form method="post" class="row">
+            <input asp-for="SubjectID" hidden />
+            <div class="border p-3">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label" asp-for="SubjectNameEN"></label>
+                        <input asp-for="SubjectNameEN" class="form-control form-control-sm" placeholder="">
+                        <span asp-validation-for="SubjectNameEN" class="text-danger"></span>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label" asp-for="SubjectNameAR"></label>
+                        <input asp-for="SubjectNameAR" type="text" class="form-control form-control-sm" placeholder="">
+                        <span asp-validation-for="SubjectNameAR" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label" asp-for="NoorID"></label>
+                        <input asp-for="NoorID" class="form-control form-control-sm" placeholder="">
+                        <span asp-validation-for="NoorID" class="text-danger"></span>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label" asp-for="NoorName"></label>
+                        <input asp-for="NoorName" type="text" class="form-control form-control-sm" placeholder="">
+                        <span asp-validation-for="NoorName" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="form-check form-switch pt-3 pb-4">
+                    <input asp-for="StaticFlag" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                    <label asp-for="StaticFlag" class="form-check-label-bg" for="flexSwitchCheckDefault"></label>
+                </div>
+                
+                
+
+                <div class=" pt-2">
+                    @if (Model.SubjectID != 0)
+                    {
+                        <button type="submit" class="btn btn-outline-primary btn " style="width:25%">Update</button>
+
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-outline-primary btn " style="width:25%">Create</button>
+
+                    }
+                    <a asp-controller="Subject" asp-action="Index" class="btn btn-outline-secondary float-end">Back</a>
+
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+}
