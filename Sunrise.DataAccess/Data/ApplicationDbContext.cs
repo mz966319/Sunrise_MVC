@@ -26,9 +26,11 @@ namespace Sunrise.DataAccess.Data
         public DbSet<Year> Years { get; set; }
         public DbSet<YearManager> YearManagers { get; set; }
         public DbSet<YearSemester> YearSemesters { get; set; }
+        public DbSet<CurrentControl> currentControls{ get; set; }
 
 
-        
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -394,7 +396,8 @@ namespace Sunrise.DataAccess.Data
                     SemesterNumber=1,
                     SemesterNameEN = "First Semester",
                     SemesterNameAR = "الفصل الدراسي الأول",
-                     FinalMark= 25,
+                    QuizCount = 2,
+                     FinalMark = 25,
                     ActiveFlag = true,
                     YearID = 1
                 }
@@ -428,6 +431,25 @@ namespace Sunrise.DataAccess.Data
                     }
                 );
 
+        modelBuilder.Entity<CurrentControl>().HasData(
+                new CurrentControl
+                {
+                    CurrentControlID = 1,
+                    YearSemesterID = 1,
+                    GradeID = 1,
+                    StudentID = 1,
+                    SubjectID = 1,
+                    Quiz1 = 1,
+                    Quiz2 = 2,
+                    Quiz3 = 3,
+                    HomeWork=3,
+                    Behaviour =5,
+                    Project =7,
+                    Practical =9,
+                    ExamMark =0,
+                    Absent = true
+                }
+            );
         }
 
     }

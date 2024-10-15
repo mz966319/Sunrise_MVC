@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sunrise.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using Sunrise.DataAccess.Data;
 namespace Sunrise.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241015064158_12")]
+    partial class _12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,87 +99,6 @@ namespace Sunrise.DataAccess.Migrations
                             CountryID = 1,
                             CountryNameAR = "معاذ",
                             CountryNameEN = "Moaz"
-                        });
-                });
-
-            modelBuilder.Entity("Sunrise.Models.CurrentControl", b =>
-                {
-                    b.Property<int>("CurrentControlID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CurrentControlID"));
-
-                    b.Property<bool>("Absent")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Behaviour")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ClassWork")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ExamMark")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GradeID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HomeWork")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Practical")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Project")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quiz1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quiz2")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quiz3")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubjectID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("YearSemesterID")
-                        .HasColumnType("int");
-
-                    b.HasKey("CurrentControlID");
-
-                    b.HasIndex("StudentID");
-
-                    b.HasIndex("SubjectID");
-
-                    b.HasIndex("YearSemesterID");
-
-                    b.ToTable("CurrentControl");
-
-                    b.HasData(
-                        new
-                        {
-                            CurrentControlID = 1,
-                            Absent = true,
-                            Behaviour = 5,
-                            ClassWork = 0,
-                            ExamMark = 0,
-                            GradeID = 1,
-                            HomeWork = 3,
-                            Practical = 9,
-                            Project = 7,
-                            Quiz1 = 1,
-                            Quiz2 = 2,
-                            Quiz3 = 3,
-                            StudentID = 1,
-                            SubjectID = 1,
-                            YearSemesterID = 1
                         });
                 });
 
@@ -594,7 +516,7 @@ namespace Sunrise.DataAccess.Migrations
                             BusSubscription = "ذهاب",
                             CreatedBy = "moaz",
                             CurrentClassID = 1,
-                            DateCreated = new DateTime(2024, 10, 15, 10, 43, 46, 571, DateTimeKind.Local).AddTicks(4657),
+                            DateCreated = new DateTime(2024, 10, 15, 9, 41, 56, 401, DateTimeKind.Local).AddTicks(4206),
                             Gender = "Male",
                             IDEndDate = new DateOnly(2024, 10, 15),
                             IDNumber = "12",
@@ -889,33 +811,6 @@ namespace Sunrise.DataAccess.Migrations
                             SemesterNumber = 1,
                             YearID = 1
                         });
-                });
-
-            modelBuilder.Entity("Sunrise.Models.CurrentControl", b =>
-                {
-                    b.HasOne("Sunrise.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Sunrise.Models.Subject", "Subject")
-                        .WithMany()
-                        .HasForeignKey("SubjectID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Sunrise.Models.YearSemester", "YearSemester")
-                        .WithMany()
-                        .HasForeignKey("YearSemesterID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
-
-                    b.Navigation("Subject");
-
-                    b.Navigation("YearSemester");
                 });
 
             modelBuilder.Entity("Sunrise.Models.GradeClass", b =>

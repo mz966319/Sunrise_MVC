@@ -22,6 +22,7 @@ namespace Sunrise.DataAccess.Repository
         public IYearRepository Year { get; private set; }
         public IYearManagerRepository YearManager { get; private set; }
         public IYearSemesterRepository YearSemester { get; private set; }
+        public ICurrentControlRepository CurrentControl { get; private set; }
 
 
 
@@ -39,6 +40,7 @@ namespace Sunrise.DataAccess.Repository
             Year = new YearRepository(_db);
             YearManager = new YearManagerRepository(_db);
             YearSemester = new YearSemesterRepository(_db);
+            CurrentControl = new CurrentControlRepository(_db);
 
 
         }

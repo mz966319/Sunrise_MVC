@@ -19,6 +19,7 @@ namespace Sunrise.DataAccess.Repository.IRepository
         IYearRepository Year { get; }
         IYearManagerRepository YearManager { get; }
         IYearSemesterRepository YearSemester { get; }
+        ICurrentControlRepository CurrentControl { get; }
 
         void Save();
     }

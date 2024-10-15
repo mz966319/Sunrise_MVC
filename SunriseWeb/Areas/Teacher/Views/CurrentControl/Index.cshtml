@@ -1,0 +1,191 @@
+﻿@model CurrentControlViewModel
+
+
+<div class="row card shadow border-0 mt-4">
+    <div class="row pt-4 pb-3">
+        <div class="col-6">
+            <h2 class="text-primary">Current Control</h2>
+        </div>
+
+
+        @* <div style="width:50%">
+            <a asp-controller="Year" asp-action="AddSemester" asp-route-id="@Model[0].YearID" class="btn btn-primary" style="width:100%">
+                <i class="bi bi-plus-circle"></i> Add Semester
+            </a>
+        </div> *@
+
+    </div>
+    <form method="post" class="row g-3">
+        @* <input asp-for="Student.StudentID" type="hidden" /> *@
+        <div class="col-12 border p-3">
+            
+            
+            <!-- Year, Semester -->
+            <div class="row">
+                <!-- Year Dropdown -->
+                <div class="col-8 col-md-8 mb-3">
+                    <label class="form-label" for="yearSelect">Year</label>
+                    <select asp-for="YearID"
+                            id="YearID"
+                            asp-items="Model.YearsList"
+                            class="form-select form-select-sm"
+                            id="yearSelect">
+                        <option disabled selected>--Select Year--</option>
+                    </select>
+                </div>
+
+                <!-- Semester Dropdown -->
+                <div class="col-4 col-md-4 mb-3">
+                    <label class="form-label" for="semesterSelect">Semester</label>
+                    <select id="semesterID"
+                            asp-for="@Model.SemesterID"
+                            asp-items="Model.SemestersList"
+                            class="form-select form-select-sm">
+                        <option disabled selected>--Select Semester--</option>
+                    </select>
+                    <span asp-validation-for="SemesterID" class="text-danger"></span>
+                </div>
+
+
+            </div>
+
+
+            <!-- Grade, Class -->
+             <div class="row">
+                <!-- Grade Dropdown -->
+                <div class="col-12 col-md-4 mb-3">
+                    <label class="form-label" for="gradeSelect">Grade</label>
+                    <select asp-for="GradeID"
+                            id="GradeID"
+                            asp-items="Model.GradesList"
+                            class="form-select form-select-sm"
+                            id="gradeSelect">
+                        <option disabled selected>--Select Grade--</option>
+                    </select>
+                </div>
+
+                <!-- Class Dropdown -->
+                <div class="col-12 col-md-4 mb-3">
+                    <label class="form-label" for="classSelect">Class</label>
+                    <select id="classID"
+                            asp-for="@Model.ClassID"
+                            asp-items="Model.ClassesList"
+                            class="form-select form-select-sm">
+                        <option disabled selected>--Select Class--</option>
+                    </select>
+                    <span asp-validation-for="ClassID" class="text-danger"></span>
+                </div>
+
+
+            </div> 
+
+           
+
+
+
+
+
+
+
+            <!-- Submit and Back Buttons -->
+            <div class="row pt-3">
+                <div class="col-12">
+                    <!-- Full width for buttons -->
+@*                     @if (Model.Student.StudentID != 0)
+                    {
+                        <input asp-for="Student.CreatedBy" type="hidden" />
+
+                        <input asp-for="Student.UpdatedBy" value="@Model.CurrentUser" type="hidden" />
+                        <input asp-for="Student.DateUpdated" value="@DateTime.Now" type="hidden" />
+
+                        <button type="submit" class="btn btn-outline-primary btn-lg w-100 w-sm-auto me-2">Update</button> <!-- Added responsive width classes -->
+                    }
+                    else
+                    {
+                        <input asp-for="Student.CreatedBy" value="@Model.CurrentUser" type="hidden" />
+                        <input asp-for="Student.DateCreated" value="@DateTime.Now" type="hidden" />
+
+                        <button type="submit" class="btn btn-outline-primary btn-lg w-100 w-sm-auto me-2">Create</button> <!-- Added responsive width classes -->
+                    } *@
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+
+
+
+
+
+
+
+    @* @<form asp-action="UpdateSemesters" asp-controller="Year" method="post" id="semestersForm">
+        <input asp-for="@Model[0].YearID" id="yearID" hidden />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th hidden></th>
+                    <th>Semester Number</th>
+                    <th>Semester Name EN</th>
+                    <th>اسم الفصل الدراسي</th>
+                    <th>Quiz Count</th>
+                    <th>Final Mark</th>
+                    <th>Active</th>
+                </tr>
+            </thead>
+            <tbody>
+                 @foreach (var semester in Model.OrderBy(u => u.YearID))
+
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td hidden>
+                            <input asp-for="@Model[i].YearSemesterID" type="hidden" />
+                            <input asp-for="@Model[i].YearID" type="hidden" />
+                        </td>
+
+                        <td>
+                            <input asp-for="@Model[i].SemesterNumber" class="form-control form-control-sm w-100" />
+                            <span asp-validation-for="@Model[i].SemesterNumber" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input asp-for="@Model[i].SemesterNameEN" class="form-control form-control-sm w-100" />
+                            <span asp-validation-for="@Model[i].SemesterNameEN" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input asp-for="@Model[i].SemesterNameAR" class="form-control form-control-sm w-100" />
+                            <span asp-validation-for="@Model[i].SemesterNameAR" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input asp-for="@Model[i].QuizCount" type="number" class="form-control form-control-sm w-100" />
+                            <span asp-validation-for="@Model[i].QuizCount" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input asp-for="@Model[i].FinalMark" type="number" class="form-control form-control-sm w-100" />
+                            <span asp-validation-for="@Model[i].FinalMark" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input asp-for="@Model[i].ActiveFlag" type="checkbox" class="form-check-input" />
+                            <span asp-validation-for="@Model[i].ActiveFlag" class="text-danger"></span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @if (Model[0].YearSemesterID != 0)
+        {
+            <button type="submit" class="btn btn-outline-primary mb-4">Save</button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-outline-primary mb-4" disabled>Save</button>
+        }
+    </form> *@
+</div>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script src="~/js/currentControl.js"></script>
+}

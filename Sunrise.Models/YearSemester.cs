@@ -25,6 +25,12 @@ namespace Sunrise.Models
         [Required]
         [DisplayName("اسم مدير/ة المدرسة")]
         public string SemesterNameAR { get; set; }
+
+        [Required]
+        [Range(1, 3, ErrorMessage = "Number of Quizzes must be between 1 and 3")]
+        [DisplayName("# of Quizzes")]
+        public int QuizCount { get; set; }
+
         [Required]
         [DisplayName("Final Mark")]
         public int FinalMark { get; set; }
