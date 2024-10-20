@@ -5,16 +5,19 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Sunrise.DataAccess.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             
         }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet <Country> Countries { get; set; }
         public DbSet<Nationality> Nationalities { get; set; }
         public DbSet<Bus> Busses { get; set; }
@@ -26,7 +29,8 @@ namespace Sunrise.DataAccess.Data
         public DbSet<Year> Years { get; set; }
         public DbSet<YearManager> YearManagers { get; set; }
         public DbSet<YearSemester> YearSemesters { get; set; }
-        public DbSet<CurrentControl> currentControls{ get; set; }
+        public DbSet<CurrentControl> CurrentControls{ get; set; }
+        public DbSet<TeacherPermission> TeacherPermissions { get; set; }
 
 
 
@@ -34,7 +38,8 @@ namespace Sunrise.DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Country>().HasData(
                     new Country
                     {

@@ -1,0 +1,89 @@
+﻿@model TeacherPermissionViewModel
+
+
+<div class="row card shadow border-0 mt-4">
+    <div class="row pt-4 pb-3">
+        <div class="col-6">
+            <h2 class="text-primary">Add Permission</h2>
+        </div>
+
+
+
+    </div>
+    <form method="post" class="row g-3">
+        <input asp-for="@Model.UserID" type="hidden" />
+        <div class="col-12 border p-3">
+
+
+
+
+            <!-- Grade, Class -->
+            <div class="row">
+                <!-- Grade Dropdown -->
+                <div class="col-12 col-md-4 mb-3">
+                    <label class="form-label" for="gradeSelect">Grade</label>
+                    <select asp-for="@Model.GradeID"
+                            id="GradeID"
+                            asp-items="@Model.GradesList"
+                            class="form-select form-select-sm"
+                            id="gradeSelect">
+                        <option disabled selected>--Select Grade--</option>
+                    </select>
+                    <span asp-validation-for="@Model.GradeID" class="text-danger"></span>
+                </div>
+
+                <!-- Class Dropdown -->
+                <div class="col-12 col-md-4 mb-3">
+                    <label class="form-label" for="classSelect">Class</label>
+                    <select id="classID"
+                            asp-for="@Model.ClassID"
+                            asp-items="@Model.ClassesList"
+                            class="form-select form-select-sm">
+                        <option disabled selected>--Select Class--</option>
+                    </select>
+                    <span asp-validation-for="@Model.ClassID" class="text-danger"></span>
+                </div>
+                <!-- Class Dropdown -->
+                <div class="col-12 col-md-4 mb-3">
+                    <label class="form-label" for="subjectSelect">Subject</label>
+                    <select id="subjectID"
+                            asp-for="@Model.SubjectID"
+                            asp-items="@Model.SubjectsList"
+                            class="form-select form-select-sm">
+                        <option disabled selected>--Select Subject--</option>
+                    </select>
+                    <span asp-validation-for="@Model.SubjectID" class="text-danger"></span>
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+            <!-- Submit and Back Buttons -->
+            <div class="row pt-3">
+                <div class="col-4">
+                    
+
+                    <button type="submit" class="btn btn-outline-primary btn-md w-50 w-sm-auto me-2">Create</button> <!-- Added responsive width classes -->
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+
+
+</div>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script src="~/js/teacherPerimssion.js"></script>
+}

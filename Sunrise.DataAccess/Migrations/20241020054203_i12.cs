@@ -8,11 +8,53 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Sunrise.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class _1 : Migration
+    public partial class i12 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AspNetRoles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(21)", maxLength: 21, nullable: false),
+                    userType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Busses",
                 columns: table => new
@@ -125,6 +167,112 @@ namespace Sunrise.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AspNetRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GradeClasses",
                 columns: table => new
                 {
@@ -183,6 +331,7 @@ namespace Sunrise.DataAccess.Migrations
                     SemesterNumber = table.Column<int>(type: "int", nullable: false),
                     SemesterNameEN = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SemesterNameAR = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    QuizCount = table.Column<int>(type: "int", nullable: false),
                     FinalMark = table.Column<int>(type: "int", nullable: false),
                     ActiveFlag = table.Column<bool>(type: "bit", nullable: false),
                     YearID = table.Column<int>(type: "int", nullable: false)
@@ -266,6 +415,50 @@ namespace Sunrise.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CurrentControls",
+                columns: table => new
+                {
+                    CurrentControlID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    YearSemesterID = table.Column<int>(type: "int", nullable: false),
+                    GradeID = table.Column<int>(type: "int", nullable: false),
+                    StudentID = table.Column<int>(type: "int", nullable: false),
+                    SubjectID = table.Column<int>(type: "int", nullable: false),
+                    Quiz1 = table.Column<int>(type: "int", nullable: false),
+                    Quiz2 = table.Column<int>(type: "int", nullable: false),
+                    Quiz3 = table.Column<int>(type: "int", nullable: false),
+                    ClassWork = table.Column<int>(type: "int", nullable: false),
+                    HomeWork = table.Column<int>(type: "int", nullable: false),
+                    Behaviour = table.Column<int>(type: "int", nullable: false),
+                    Project = table.Column<int>(type: "int", nullable: false),
+                    Practical = table.Column<int>(type: "int", nullable: false),
+                    ExamMark = table.Column<int>(type: "int", nullable: false),
+                    Absent = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CurrentControls", x => x.CurrentControlID);
+                    table.ForeignKey(
+                        name: "FK_CurrentControls_Students_StudentID",
+                        column: x => x.StudentID,
+                        principalTable: "Students",
+                        principalColumn: "StudentID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CurrentControls_Subjects_SubjectID",
+                        column: x => x.SubjectID,
+                        principalTable: "Subjects",
+                        principalColumn: "SubjectID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CurrentControls_YearSemesters_YearSemesterID",
+                        column: x => x.YearSemesterID,
+                        principalTable: "YearSemesters",
+                        principalColumn: "YearSemesterID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Busses",
                 columns: new[] { "BusID", "BusNumber", "BusPath", "BusPlate", "BusType", "DriverName", "DriverPhone" },
@@ -333,7 +526,7 @@ namespace Sunrise.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "Years",
                 columns: new[] { "YearID", "ActiveFlag", "AddmissionDate", "YearAR", "YearEN" },
-                values: new object[] { 1, true, new DateOnly(2024, 10, 12), "1444-1445", "2020-2021" });
+                values: new object[] { 1, true, new DateOnly(2024, 10, 20), "1444-1445", "2020-2021" });
 
             migrationBuilder.InsertData(
                 table: "GradeClasses",
@@ -347,13 +540,72 @@ namespace Sunrise.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "YearSemesters",
-                columns: new[] { "YearSemesterID", "ActiveFlag", "FinalMark", "SemesterNameAR", "SemesterNameEN", "SemesterNumber", "YearID" },
-                values: new object[] { 1, true, 25, "الفصل الدراسي الأول", "First Semester", 1, 1 });
+                columns: new[] { "YearSemesterID", "ActiveFlag", "FinalMark", "QuizCount", "SemesterNameAR", "SemesterNameEN", "SemesterNumber", "YearID" },
+                values: new object[] { 1, true, 25, 2, "الفصل الدراسي الأول", "First Semester", 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "Students",
                 columns: new[] { "StudentID", "AdmissionDate", "AuditorFlag", "BirthDate", "BirthPlaceID", "BusFlag", "BusID", "BusSubscription", "CreatedBy", "CurrentClassID", "DateCreated", "DateUpdated", "Gender", "IDEndDate", "IDNumber", "MatexParentID", "MatexStudentID", "NationalityID", "ParentPhone1", "ParentPhones2", "Passport", "PassportEndDate", "PreviousSchoolID", "StudentActiveFlag", "StudentNameAR", "StudentNameEN", "StudentPhone", "UpdatedBy" },
-                values: new object[] { 1, new DateOnly(2024, 10, 12), false, new DateOnly(2024, 10, 12), 1, false, 1, "ذهاب", "moaz", 1, new DateTime(2024, 10, 13, 0, 13, 15, 9, DateTimeKind.Local).AddTicks(576), null, "Male", new DateOnly(2024, 10, 12), "12", null, null, 1, "111", "222", "A12", new DateOnly(2024, 10, 12), 1, 0, "معاذ", "Moaz", "333", null });
+                values: new object[] { 1, new DateOnly(2024, 10, 20), false, new DateOnly(2024, 10, 20), 1, false, 1, "ذهاب", "moaz", 1, new DateTime(2024, 10, 20, 8, 42, 2, 1, DateTimeKind.Local).AddTicks(9789), null, "Male", new DateOnly(2024, 10, 20), "12", null, null, 1, "111", "222", "A12", new DateOnly(2024, 10, 20), 1, 0, "معاذ", "Moaz", "333", null });
+
+            migrationBuilder.InsertData(
+                table: "CurrentControls",
+                columns: new[] { "CurrentControlID", "Absent", "Behaviour", "ClassWork", "ExamMark", "GradeID", "HomeWork", "Practical", "Project", "Quiz1", "Quiz2", "Quiz3", "StudentID", "SubjectID", "YearSemesterID" },
+                values: new object[] { 1, true, 5, 0, 0, 1, 3, 9, 7, 1, 2, 3, 1, 1, 1 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetRoleClaims_RoleId",
+                table: "AspNetRoleClaims",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                table: "AspNetRoles",
+                column: "NormalizedName",
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserClaims_UserId",
+                table: "AspNetUserClaims",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserLogins_UserId",
+                table: "AspNetUserLogins",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_RoleId",
+                table: "AspNetUserRoles",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "AspNetUsers",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "AspNetUsers",
+                column: "NormalizedUserName",
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CurrentControls_StudentID",
+                table: "CurrentControls",
+                column: "StudentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CurrentControls_SubjectID",
+                table: "CurrentControls",
+                column: "SubjectID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CurrentControls_YearSemesterID",
+                table: "CurrentControls",
+                column: "YearSemesterID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GradeClasses_GradeID",
@@ -405,13 +657,37 @@ namespace Sunrise.DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AspNetRoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserLogins");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "CurrentControls");
+
+            migrationBuilder.DropTable(
+                name: "YearManagers");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "Students");
 
             migrationBuilder.DropTable(
                 name: "Subjects");
-
-            migrationBuilder.DropTable(
-                name: "YearManagers");
 
             migrationBuilder.DropTable(
                 name: "YearSemesters");

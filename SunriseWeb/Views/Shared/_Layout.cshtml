@@ -52,60 +52,89 @@
                             </a>
                         </li>
                         <!-- Settings Dropdown -->
-                        <li class="dropdown">
-                            <a href="#" class="nav-link dropdown-toggle text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-gear"></i><span class="ms-1 d-none d-sm-inline">Settings</span>
-                            </a>
-                            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
-                                <!-- Years -->
-                                <li>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Year" asp-action="Index">
-                                        <i class="bi bi-calendar2-date-fill"></i><span class="ms-1 d-none d-sm-inline"> Academic Years</span>
-                                    </a>
-                                </li>
-                                
-                                <!-- Grades -->
-                                <li>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Grade" asp-action="Index">
-                                        <i class="bi bi-123"></i><span class="ms-1 d-none d-sm-inline"> Grades</span>
-                                    </a>
-                                </li>
-                                <!-- Classes -->
-                                <li>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="GradeClass" asp-action="Index">
-                                        <i class="bi bi-door-closed"></i><span class="ms-1 d-none d-sm-inline"> Classes</span>
-                                    </a>
-                                </li>
-                                <!-- Subjects -->
-                                <li>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Subject" asp-action="Index">
-                                        <i class="bi bi-boxes"></i><span class="ms-1 d-none d-sm-inline"> Subjects</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <!-- Busses -->
-                                <li>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Bus" asp-action="Index">
-                                        <i class="bi bi-bus-front"></i><span class="ms-1 d-none d-sm-inline"> Busses</span>
-                                    </a>
-                                </li>
-                                <!-- Countries - Nationalities -->
-                                <li>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Country" asp-action="Index">
-                                        <i class="bi bi-globe-europe-africa"></i><span class="ms-1 d-none d-sm-inline"> Countries - Nationalities</span>
-                                    </a>
-                                </li>
-                                <!-- Previous Schools -->
-                                <li>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="PreviousSchool" asp-action="Index">
-                                        <i class="bi bi-buildings"></i><span class="ms-1 d-none d-sm-inline"> Previous Schools</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Super_Admin))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-gear"></i><span class="ms-1 d-none d-sm-inline">Settings</span>
+                                </a>
+                                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                                    <!-- Years -->
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Year" asp-action="Index">
+                                            <i class="bi bi-calendar2-date-fill"></i><span class="ms-1 d-none d-sm-inline"> Academic Years</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Grades -->
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Grade" asp-action="Index">
+                                            <i class="bi bi-123"></i><span class="ms-1 d-none d-sm-inline"> Grades</span>
+                                        </a>
+                                    </li>
+                                    <!-- Classes -->
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="GradeClass" asp-action="Index">
+                                            <i class="bi bi-door-closed"></i><span class="ms-1 d-none d-sm-inline"> Classes</span>
+                                        </a>
+                                    </li>
+                                    <!-- Subjects -->
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Subject" asp-action="Index">
+                                            <i class="bi bi-boxes"></i><span class="ms-1 d-none d-sm-inline"> Subjects</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <!-- Busses -->
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Bus" asp-action="Index">
+                                            <i class="bi bi-bus-front"></i><span class="ms-1 d-none d-sm-inline"> Busses</span>
+                                        </a>
+                                    </li>
+                                    <!-- Countries - Nationalities -->
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Country" asp-action="Index">
+                                            <i class="bi bi-globe-europe-africa"></i><span class="ms-1 d-none d-sm-inline"> Countries - Nationalities</span>
+                                        </a>
+                                    </li>
+                                    <!-- Previous Schools -->
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="PreviousSchool" asp-action="Index">
+                                            <i class="bi bi-buildings"></i><span class="ms-1 d-none d-sm-inline"> Previous Schools</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        <!-- Users Settings Dropdown -->
+                        @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Super_Admin))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-gear"></i><span class="ms-1 d-none d-sm-inline">Users Settings</span>
+                                </a>
+                                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                                    <!-- Years -->
+                                    <li>
+                                        <a class="dropdown-item" id="register" asp-area="Identity" asp-page="/Account/Register">
+@*                                         <a class="dropdown-item" asp-area="Admin" asp-controller="Year" asp-action="Index">
+ *@                                            <i class="bi bi-person-fill-add"></i><span class="ms-1 d-none d-sm-inline"> Add New User</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Grades -->
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="ApplicationUser" asp-action="Index">
+                                            <i class="bi bi-person-fill-lock"></i><span class="ms-1 d-none d-sm-inline"> Users</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>

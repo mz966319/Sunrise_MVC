@@ -8,6 +8,7 @@ namespace Sunrise.DataAccess.Repository.IRepository
 {
     public interface IUnitOfWork
     {
+        IApplicationUserRepository ApplicationUser { get; }
         ICountryRepository Country { get; }
         IStudentRepository Student { get; }
         IBusRepository Bus { get; }
@@ -20,6 +21,7 @@ namespace Sunrise.DataAccess.Repository.IRepository
         IYearManagerRepository YearManager { get; }
         IYearSemesterRepository YearSemester { get; }
         ICurrentControlRepository CurrentControl { get; }
+        ITeacherPermissionRepository TeacherPermission { get; }
 
         void Save();
     }

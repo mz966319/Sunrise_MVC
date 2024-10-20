@@ -12,18 +12,225 @@ using Sunrise.DataAccess.Data;
 namespace Sunrise.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241012211315_1")]
-    partial class _1
+    [Migration("20241020185000_111")]
+    partial class _111
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator().HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
 
             modelBuilder.Entity("Sunrise.Models.Bus", b =>
                 {
@@ -99,6 +306,87 @@ namespace Sunrise.DataAccess.Migrations
                             CountryID = 1,
                             CountryNameAR = "معاذ",
                             CountryNameEN = "Moaz"
+                        });
+                });
+
+            modelBuilder.Entity("Sunrise.Models.CurrentControl", b =>
+                {
+                    b.Property<int>("CurrentControlID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CurrentControlID"));
+
+                    b.Property<bool>("Absent")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Behaviour")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClassWork")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExamMark")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GradeID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HomeWork")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Practical")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Project")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quiz1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quiz2")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quiz3")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("YearSemesterID")
+                        .HasColumnType("int");
+
+                    b.HasKey("CurrentControlID");
+
+                    b.HasIndex("StudentID");
+
+                    b.HasIndex("SubjectID");
+
+                    b.HasIndex("YearSemesterID");
+
+                    b.ToTable("CurrentControls");
+
+                    b.HasData(
+                        new
+                        {
+                            CurrentControlID = 1,
+                            Absent = true,
+                            Behaviour = 5,
+                            ClassWork = 0,
+                            ExamMark = 0,
+                            GradeID = 1,
+                            HomeWork = 3,
+                            Practical = 9,
+                            Project = 7,
+                            Quiz1 = 1,
+                            Quiz2 = 2,
+                            Quiz3 = 3,
+                            StudentID = 1,
+                            SubjectID = 1,
+                            YearSemesterID = 1
                         });
                 });
 
@@ -507,24 +795,24 @@ namespace Sunrise.DataAccess.Migrations
                         new
                         {
                             StudentID = 1,
-                            AdmissionDate = new DateOnly(2024, 10, 12),
+                            AdmissionDate = new DateOnly(2024, 10, 20),
                             AuditorFlag = false,
-                            BirthDate = new DateOnly(2024, 10, 12),
+                            BirthDate = new DateOnly(2024, 10, 20),
                             BirthPlaceID = 1,
                             BusFlag = false,
                             BusID = 1,
                             BusSubscription = "ذهاب",
                             CreatedBy = "moaz",
                             CurrentClassID = 1,
-                            DateCreated = new DateTime(2024, 10, 13, 0, 13, 15, 9, DateTimeKind.Local).AddTicks(576),
+                            DateCreated = new DateTime(2024, 10, 20, 21, 49, 58, 483, DateTimeKind.Local).AddTicks(4785),
                             Gender = "Male",
-                            IDEndDate = new DateOnly(2024, 10, 12),
+                            IDEndDate = new DateOnly(2024, 10, 20),
                             IDNumber = "12",
                             NationalityID = 1,
                             ParentPhone1 = "111",
                             ParentPhones2 = "222",
                             Passport = "A12",
-                            PassportEndDate = new DateOnly(2024, 10, 12),
+                            PassportEndDate = new DateOnly(2024, 10, 20),
                             PreviousSchoolID = 1,
                             StudentActiveFlag = 0,
                             StudentNameAR = "معاذ",
@@ -674,6 +962,29 @@ namespace Sunrise.DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Sunrise.Models.TeacherPermission", b =>
+                {
+                    b.Property<int>("TeacherPermissionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeacherPermissionID"));
+
+                    b.Property<bool>("AcitveFlag")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ClassID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TeacherPermissionID");
+
+                    b.ToTable("teacherPermissions");
+                });
+
             modelBuilder.Entity("Sunrise.Models.Year", b =>
                 {
                     b.Property<int>("YearID")
@@ -705,7 +1016,7 @@ namespace Sunrise.DataAccess.Migrations
                         {
                             YearID = 1,
                             ActiveFlag = true,
-                            AddmissionDate = new DateOnly(2024, 10, 12),
+                            AddmissionDate = new DateOnly(2024, 10, 20),
                             YearAR = "1444-1445",
                             YearEN = "2020-2021"
                         });
@@ -776,6 +1087,9 @@ namespace Sunrise.DataAccess.Migrations
                     b.Property<int>("FinalMark")
                         .HasColumnType("int");
 
+                    b.Property<int>("QuizCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("SemesterNameAR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -802,11 +1116,103 @@ namespace Sunrise.DataAccess.Migrations
                             YearSemesterID = 1,
                             ActiveFlag = true,
                             FinalMark = 25,
+                            QuizCount = 2,
                             SemesterNameAR = "الفصل الدراسي الأول",
                             SemesterNameEN = "First Semester",
                             SemesterNumber = 1,
                             YearID = 1
                         });
+                });
+
+            modelBuilder.Entity("Sunrise.Models.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Sunrise.Models.CurrentControl", b =>
+                {
+                    b.HasOne("Sunrise.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Sunrise.Models.Subject", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Sunrise.Models.YearSemester", "YearSemester")
+                        .WithMany()
+                        .HasForeignKey("YearSemesterID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Subject");
+
+                    b.Navigation("YearSemester");
                 });
 
             modelBuilder.Entity("Sunrise.Models.GradeClass", b =>

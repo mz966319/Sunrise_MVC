@@ -11,6 +11,8 @@ namespace Sunrise.DataAccess.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private ApplicationDbContext _db;
+        public IApplicationUserRepository ApplicationUser { get; private set; }
+
         public ICountryRepository Country{ get; private set; }
         public IBusRepository Bus { get; private set; }
         public IGradeClassRepository GradeClass { get; private set; }
@@ -23,12 +25,14 @@ namespace Sunrise.DataAccess.Repository
         public IYearManagerRepository YearManager { get; private set; }
         public IYearSemesterRepository YearSemester { get; private set; }
         public ICurrentControlRepository CurrentControl { get; private set; }
+        public ITeacherPermissionRepository TeacherPermission { get; private set; }
 
 
 
         public UnitOfWork(ApplicationDbContext db) 
         {
             _db = db;
+            ApplicationUser = new ApplicationUserRepository(db);
             Country = new CountryRepository(_db);
             Bus = new BusRepository(_db);
             GradeClass = new GradeClassRepository(_db);
@@ -41,6 +45,7 @@ namespace Sunrise.DataAccess.Repository
             YearManager = new YearManagerRepository(_db);
             YearSemester = new YearSemesterRepository(_db);
             CurrentControl = new CurrentControlRepository(_db);
+            TeacherPermission = new TeacherPermissionRepository(_db);
 
 
         }

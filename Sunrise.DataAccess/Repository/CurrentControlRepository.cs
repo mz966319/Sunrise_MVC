@@ -20,7 +20,7 @@ namespace Sunrise.DataAccess.Repository
 
         public void Update(CurrentControl currentControl)
         {
-            _db.currentControls.Update(currentControl);
+            _db.CurrentControls.Update(currentControl);
         }
     }
 }
