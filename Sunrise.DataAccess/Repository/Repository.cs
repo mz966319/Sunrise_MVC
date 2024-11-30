@@ -32,7 +32,8 @@ namespace Sunrise.DataAccess.Repository
             _db.YearManagers.Include(u => u.Year).Include(u => u.YearID);
             _db.TeacherPermissions.Include(u => u.User).Include(u => u.UserID)
                 .Include(u => u.Subject).Include(u => u.SubjectID)
-                .Include(u => u.Class).Include(u => u.ClassID);
+                .Include(u => u.Class).Include(u => u.ClassID)
+                .Include(u => u.Class.Grade).Include(u => u.Class.GradeID);
         }
         public void Add(T entity)
         {

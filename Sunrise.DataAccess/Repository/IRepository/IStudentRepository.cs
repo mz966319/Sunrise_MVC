@@ -10,5 +10,6 @@ namespace Sunrise.DataAccess.Repository.IRepository
     public interface IStudentRepository : IRepository<Student>
     {
         void Update(Student student);
+        void AddStudent(Student student);
     }
 }

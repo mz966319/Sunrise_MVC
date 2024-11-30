@@ -27,6 +27,7 @@ using Sunrise.Utility;
 
 namespace SunriseWeb.Areas.Identity.Pages.Account
 {
+    [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Super_Admin)]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -115,7 +116,7 @@ namespace SunriseWeb.Areas.Identity.Pages.Account
 
             Input = new()
             {
-                RolesList = _roleManager.Roles.OrderBy(x => x.Name).Select(x => x.Name).Select(i => new SelectListItem
+                RolesList = _roleManager.Roles.OrderBy(x => x.Name).Where(u=>u.Name!=SD.Role_Super_Admin).Select(x => x.Name).Select(i => new SelectListItem
                 {
                     Text = i,
                     Value = i

@@ -16,14 +16,16 @@ namespace Sunrise.Models.ViewModels
         public int SubjectID { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem> SubjectsList { get; set; }
-        [DisplayName("Grade")]
+        //[DisplayName("Grade")]
         public int GradeID { get; set; }
-        [ValidateNever]
+        //[ValidateNever]
         public IEnumerable<SelectListItem>? GradesList { get; set; }
         [DisplayName("Class")]
         public int ClassID { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem>? ClassesList { get; set; }
+
+        public string PermissionType { get; set; }
 
 
     }

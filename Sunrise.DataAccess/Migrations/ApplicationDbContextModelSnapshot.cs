@@ -301,8 +301,146 @@ namespace Sunrise.DataAccess.Migrations
                         new
                         {
                             CountryID = 1,
-                            CountryNameAR = "معاذ",
-                            CountryNameEN = "Moaz"
+                            CountryNameAR = "مصر",
+                            CountryNameEN = "Egypt"
+                        },
+                        new
+                        {
+                            CountryID = 2,
+                            CountryNameAR = "السعودية",
+                            CountryNameEN = "Saudi Arabia"
+                        },
+                        new
+                        {
+                            CountryID = 3,
+                            CountryNameAR = "فلسطين",
+                            CountryNameEN = "Palestine"
+                        },
+                        new
+                        {
+                            CountryID = 4,
+                            CountryNameAR = "اليمن",
+                            CountryNameEN = "Yemen"
+                        },
+                        new
+                        {
+                            CountryID = 5,
+                            CountryNameAR = "السودان",
+                            CountryNameEN = "Sudan"
+                        },
+                        new
+                        {
+                            CountryID = 6,
+                            CountryNameAR = "نيجيريا",
+                            CountryNameEN = "Nigeria"
+                        },
+                        new
+                        {
+                            CountryID = 7,
+                            CountryNameAR = "لبنان",
+                            CountryNameEN = "Lebanon"
+                        },
+                        new
+                        {
+                            CountryID = 8,
+                            CountryNameAR = "إرتريا",
+                            CountryNameEN = "Eritrea"
+                        },
+                        new
+                        {
+                            CountryID = 9,
+                            CountryNameAR = "تركيا",
+                            CountryNameEN = "Turkey"
+                        },
+                        new
+                        {
+                            CountryID = 10,
+                            CountryNameAR = "الأردن",
+                            CountryNameEN = "Jordan"
+                        },
+                        new
+                        {
+                            CountryID = 11,
+                            CountryNameAR = "المغرب",
+                            CountryNameEN = "Morocco"
+                        },
+                        new
+                        {
+                            CountryID = 12,
+                            CountryNameAR = "بريطانيا",
+                            CountryNameEN = "United Kingdom"
+                        },
+                        new
+                        {
+                            CountryID = 13,
+                            CountryNameAR = "سوريا",
+                            CountryNameEN = "Syria"
+                        },
+                        new
+                        {
+                            CountryID = 14,
+                            CountryNameAR = "كينيا",
+                            CountryNameEN = "Kenya"
+                        },
+                        new
+                        {
+                            CountryID = 15,
+                            CountryNameAR = "الصومال",
+                            CountryNameEN = "Somalia"
+                        },
+                        new
+                        {
+                            CountryID = 16,
+                            CountryNameAR = "تشاد",
+                            CountryNameEN = "Chad"
+                        },
+                        new
+                        {
+                            CountryID = 17,
+                            CountryNameAR = "أفغانستان",
+                            CountryNameEN = "Afghanistan"
+                        },
+                        new
+                        {
+                            CountryID = 18,
+                            CountryNameAR = "مالي",
+                            CountryNameEN = "Mali"
+                        },
+                        new
+                        {
+                            CountryID = 19,
+                            CountryNameAR = "باكستان",
+                            CountryNameEN = "Pakistan"
+                        },
+                        new
+                        {
+                            CountryID = 20,
+                            CountryNameAR = "الهند",
+                            CountryNameEN = "India"
+                        },
+                        new
+                        {
+                            CountryID = 21,
+                            CountryNameAR = "الولايات المتحدة الأمريكية",
+                            CountryNameEN = "United States of America"
+                        },
+                        new
+                        {
+                            CountryID = 22,
+                            CountryNameAR = "إثيوبيا",
+                            CountryNameEN = "Ethiopia"
+                        },
+                        new
+                        {
+                            CountryID = 23,
+                            CountryNameAR = "تونس",
+                            CountryNameEN = "Tunisia"
+                        },
+                        new
+                        {
+                            CountryID = 24,
+                            CountryNameAR = "الجزائر",
+                            CountryNameEN = "Algeria"
                         });
                 });
 
@@ -317,7 +455,10 @@ namespace Sunrise.DataAccess.Migrations
                     b.Property<bool>("Absent")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Behaviour")
+                    b.Property<int?>("Behaviour")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClassID")
                         .HasColumnType("int");
 
                     b.Property<int>("ClassWork")
@@ -326,13 +467,10 @@ namespace Sunrise.DataAccess.Migrations
                     b.Property<int>("ExamMark")
                         .HasColumnType("int");
 
-                    b.Property<int>("GradeID")
-                        .HasColumnType("int");
-
                     b.Property<int>("HomeWork")
                         .HasColumnType("int");
 
-                    b.Property<int>("Practical")
+                    b.Property<int?>("Practical")
                         .HasColumnType("int");
 
                     b.Property<int>("Project")
@@ -341,14 +479,15 @@ namespace Sunrise.DataAccess.Migrations
                     b.Property<int>("Quiz1")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quiz2")
+                    b.Property<int?>("Quiz2")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quiz3")
+                    b.Property<int?>("Quiz3")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentID")
-                        .HasColumnType("int");
+                    b.Property<string>("StudentID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("SubjectID")
                         .HasColumnType("int");
@@ -365,26 +504,6 @@ namespace Sunrise.DataAccess.Migrations
                     b.HasIndex("YearSemesterID");
 
                     b.ToTable("CurrentControls");
-
-                    b.HasData(
-                        new
-                        {
-                            CurrentControlID = 1,
-                            Absent = true,
-                            Behaviour = 5,
-                            ClassWork = 0,
-                            ExamMark = 0,
-                            GradeID = 1,
-                            HomeWork = 3,
-                            Practical = 9,
-                            Project = 7,
-                            Quiz1 = 1,
-                            Quiz2 = 2,
-                            Quiz3 = 3,
-                            StudentID = 1,
-                            SubjectID = 1,
-                            YearSemesterID = 1
-                        });
                 });
 
             modelBuilder.Entity("Sunrise.Models.Grade", b =>
@@ -410,10 +529,6 @@ namespace Sunrise.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SchoolName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("GradeID");
 
                     b.ToTable("Grades");
@@ -423,163 +538,97 @@ namespace Sunrise.DataAccess.Migrations
                         {
                             GradeID = 1,
                             CertificateNameAR = "روضة أول",
-                            CertificateNameEN = "Kindergarten first grade",
+                            CertificateNameEN = "Kindergarten First Grade",
                             GradeLevel = -1,
-                            GradeName = "KG 1",
-                            SchoolName = "G"
+                            GradeName = "KG 1"
                         },
                         new
                         {
                             GradeID = 2,
                             CertificateNameAR = "روضة ثاني",
-                            CertificateNameEN = "Kindergarten Seconde grade",
+                            CertificateNameEN = "Kindergarten Seconde Grade",
                             GradeLevel = -2,
-                            GradeName = "KG 2",
-                            SchoolName = "G"
+                            GradeName = "KG 2"
                         },
                         new
                         {
                             GradeID = 3,
                             CertificateNameAR = "روضة ثالث",
-                            CertificateNameEN = "Kindergarten Third grade",
+                            CertificateNameEN = "Kindergarten Third Grade",
                             GradeLevel = -3,
-                            GradeName = "KG 3",
-                            SchoolName = "G"
+                            GradeName = "KG 3"
                         },
                         new
                         {
                             GradeID = 4,
                             CertificateNameAR = "الصف الأول الابتدائى",
-                            CertificateNameEN = "Elementary first grade",
+                            CertificateNameEN = "Elementary First Grade",
                             GradeLevel = 1,
-                            GradeName = "Grad 1",
-                            SchoolName = "G"
+                            GradeName = "Grade 1"
                         },
                         new
                         {
                             GradeID = 5,
                             CertificateNameAR = "الصف الثانى الابتدائى",
-                            CertificateNameEN = "Elementary Seconde grade",
+                            CertificateNameEN = "Elementary Seconde Grade",
                             GradeLevel = 2,
-                            GradeName = "Grad 2",
-                            SchoolName = "G"
+                            GradeName = "Grade 2"
                         },
                         new
                         {
                             GradeID = 6,
                             CertificateNameAR = "الصف الثالث الابتدائى",
-                            CertificateNameEN = "Elementary Third grade",
+                            CertificateNameEN = "Elementary Third Grade",
                             GradeLevel = 3,
-                            GradeName = "Grad 3",
-                            SchoolName = "G"
+                            GradeName = "Grade 3"
                         },
                         new
                         {
                             GradeID = 7,
                             CertificateNameAR = "الصف الرابع الابتدائى",
-                            CertificateNameEN = "Elementary Fourth grade",
+                            CertificateNameEN = "Elementary Fourth Grade",
                             GradeLevel = 4,
-                            GradeName = "Grad 4 B",
-                            SchoolName = "B"
+                            GradeName = "Grade 4"
                         },
                         new
                         {
                             GradeID = 8,
-                            CertificateNameAR = "الصف الرابع الابتدائي",
-                            CertificateNameEN = "Elementary Fourth grade",
-                            GradeLevel = 4,
-                            GradeName = "Grad 4 G",
-                            SchoolName = "G"
+                            CertificateNameAR = "الصف الخامس الابتدائى",
+                            CertificateNameEN = "Elementary Fifth Grade",
+                            GradeLevel = 5,
+                            GradeName = "Grade 5"
                         },
                         new
                         {
                             GradeID = 9,
-                            CertificateNameAR = "الصف الخامس الابتدائى",
-                            CertificateNameEN = "Elementary Fifth grade",
-                            GradeLevel = 5,
-                            GradeName = "Grad 5 B",
-                            SchoolName = "B"
+                            CertificateNameAR = "الصف السادس الابتدائى",
+                            CertificateNameEN = "Elementary Sixth Grade",
+                            GradeLevel = 6,
+                            GradeName = "Grade 6"
                         },
                         new
                         {
                             GradeID = 10,
-                            CertificateNameAR = "الصف الخامس الابتدائى",
-                            CertificateNameEN = "Elementary Fifth grade",
-                            GradeLevel = 5,
-                            GradeName = "Grad 5 G",
-                            SchoolName = "G"
+                            CertificateNameAR = "الصف الأول المتوسط",
+                            CertificateNameEN = "Intermediate First Grade",
+                            GradeLevel = 7,
+                            GradeName = "Grade 7"
                         },
                         new
                         {
                             GradeID = 11,
-                            CertificateNameAR = "الصف السادس الابتدائى",
-                            CertificateNameEN = "Elementary Sixth grade",
-                            GradeLevel = 6,
-                            GradeName = "Grad 6 B",
-                            SchoolName = "B"
+                            CertificateNameAR = "الصف الثانى المتوسط",
+                            CertificateNameEN = "Intermediate Second Grade",
+                            GradeLevel = 8,
+                            GradeName = "Grade 8"
                         },
                         new
                         {
                             GradeID = 12,
-                            CertificateNameAR = "الصف السادس الابتدائى",
-                            CertificateNameEN = "Elementary Sixth grade",
-                            GradeLevel = 6,
-                            GradeName = "Grad 6 G",
-                            SchoolName = "G"
-                        },
-                        new
-                        {
-                            GradeID = 13,
-                            CertificateNameAR = "الصف الأول المتوسط",
-                            CertificateNameEN = "Intermediate First grade",
-                            GradeLevel = 7,
-                            GradeName = "Grad 7 B",
-                            SchoolName = "B"
-                        },
-                        new
-                        {
-                            GradeID = 14,
-                            CertificateNameAR = "الصف الأول المتوسط",
-                            CertificateNameEN = "Intermediate First grade",
-                            GradeLevel = 7,
-                            GradeName = "Grad 7 G",
-                            SchoolName = "G"
-                        },
-                        new
-                        {
-                            GradeID = 15,
-                            CertificateNameAR = "الصف الثانى المتوسط",
-                            CertificateNameEN = "Intermediate Second grade",
-                            GradeLevel = 8,
-                            GradeName = "Grad 8 B",
-                            SchoolName = "B"
-                        },
-                        new
-                        {
-                            GradeID = 16,
-                            CertificateNameAR = "الصف الثانى المتوسط",
-                            CertificateNameEN = "Intermediate Second grade",
-                            GradeLevel = 8,
-                            GradeName = "Grad 8 G",
-                            SchoolName = "G"
-                        },
-                        new
-                        {
-                            GradeID = 17,
                             CertificateNameAR = "الصف الثالث المتوسط",
-                            CertificateNameEN = "Intermediate third grade",
+                            CertificateNameEN = "Intermediate Third Grade",
                             GradeLevel = 9,
-                            GradeName = "Grad 9 B",
-                            SchoolName = "B"
-                        },
-                        new
-                        {
-                            GradeID = 18,
-                            CertificateNameAR = "الصف الثالث المتوسط",
-                            CertificateNameEN = "Intermediate third grade",
-                            GradeLevel = 9,
-                            GradeName = "Grad 9 G",
-                            SchoolName = "G"
+                            GradeName = "Grade 9"
                         });
                 });
 
@@ -598,6 +647,10 @@ namespace Sunrise.DataAccess.Migrations
                     b.Property<int>("GradeID")
                         .HasColumnType("int");
 
+                    b.Property<string>("SectionName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("GradeClassID");
 
                     b.HasIndex("GradeID");
@@ -608,8 +661,373 @@ namespace Sunrise.DataAccess.Migrations
                         new
                         {
                             GradeClassID = 1,
+                            ClassName = "A",
+                            GradeID = 1,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 2,
+                            ClassName = "A",
+                            GradeID = 2,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 3,
+                            ClassName = "B",
+                            GradeID = 2,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 4,
+                            ClassName = "C",
+                            GradeID = 2,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 5,
+                            ClassName = "D",
+                            GradeID = 2,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 6,
+                            ClassName = "E",
+                            GradeID = 2,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 7,
+                            ClassName = "A",
+                            GradeID = 3,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 8,
+                            ClassName = "B",
+                            GradeID = 3,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 9,
+                            ClassName = "C",
+                            GradeID = 3,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 10,
+                            ClassName = "D",
+                            GradeID = 3,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 11,
+                            ClassName = "E",
+                            GradeID = 3,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 12,
                             ClassName = "BA",
-                            GradeID = 1
+                            GradeID = 4,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 13,
+                            ClassName = "BB",
+                            GradeID = 4,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 14,
+                            ClassName = "BC",
+                            GradeID = 4,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 15,
+                            ClassName = "GA",
+                            GradeID = 4,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 16,
+                            ClassName = "GB",
+                            GradeID = 4,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 17,
+                            ClassName = "GC",
+                            GradeID = 4,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 18,
+                            ClassName = "BA",
+                            GradeID = 5,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 19,
+                            ClassName = "BB",
+                            GradeID = 5,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 20,
+                            ClassName = "BC",
+                            GradeID = 5,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 21,
+                            ClassName = "GA",
+                            GradeID = 5,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 22,
+                            ClassName = "GB",
+                            GradeID = 5,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 23,
+                            ClassName = "GC",
+                            GradeID = 5,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 24,
+                            ClassName = "BA",
+                            GradeID = 6,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 25,
+                            ClassName = "BB",
+                            GradeID = 6,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 26,
+                            ClassName = "BC",
+                            GradeID = 6,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 27,
+                            ClassName = "GA",
+                            GradeID = 6,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 28,
+                            ClassName = "GB",
+                            GradeID = 6,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 29,
+                            ClassName = "GC",
+                            GradeID = 6,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 30,
+                            ClassName = "GA",
+                            GradeID = 7,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 31,
+                            ClassName = "GB",
+                            GradeID = 7,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 32,
+                            ClassName = "GA",
+                            GradeID = 8,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 33,
+                            ClassName = "GB",
+                            GradeID = 8,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 34,
+                            ClassName = "GA",
+                            GradeID = 9,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 35,
+                            ClassName = "GB",
+                            GradeID = 9,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 36,
+                            ClassName = "GA",
+                            GradeID = 10,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 37,
+                            ClassName = "GB",
+                            GradeID = 10,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 38,
+                            ClassName = "GA",
+                            GradeID = 11,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 39,
+                            ClassName = "GB",
+                            GradeID = 11,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 40,
+                            ClassName = "GA",
+                            GradeID = 12,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 41,
+                            ClassName = "GB",
+                            GradeID = 12,
+                            SectionName = "Girls"
+                        },
+                        new
+                        {
+                            GradeClassID = 42,
+                            ClassName = "BA",
+                            GradeID = 7,
+                            SectionName = "Boys"
+                        },
+                        new
+                        {
+                            GradeClassID = 43,
+                            ClassName = "BB",
+                            GradeID = 7,
+                            SectionName = "Boys"
+                        },
+                        new
+                        {
+                            GradeClassID = 44,
+                            ClassName = "BA",
+                            GradeID = 8,
+                            SectionName = "Boys"
+                        },
+                        new
+                        {
+                            GradeClassID = 45,
+                            ClassName = "BB",
+                            GradeID = 8,
+                            SectionName = "Boys"
+                        },
+                        new
+                        {
+                            GradeClassID = 46,
+                            ClassName = "BA",
+                            GradeID = 9,
+                            SectionName = "Boys"
+                        },
+                        new
+                        {
+                            GradeClassID = 47,
+                            ClassName = "BB",
+                            GradeID = 9,
+                            SectionName = "Boys"
+                        },
+                        new
+                        {
+                            GradeClassID = 48,
+                            ClassName = "BA",
+                            GradeID = 10,
+                            SectionName = "Boys"
+                        },
+                        new
+                        {
+                            GradeClassID = 49,
+                            ClassName = "BB",
+                            GradeID = 10,
+                            SectionName = "Boys"
+                        },
+                        new
+                        {
+                            GradeClassID = 50,
+                            ClassName = "BA",
+                            GradeID = 11,
+                            SectionName = "Boys"
+                        },
+                        new
+                        {
+                            GradeClassID = 51,
+                            ClassName = "BB",
+                            GradeID = 11,
+                            SectionName = "Boys"
+                        },
+                        new
+                        {
+                            GradeClassID = 52,
+                            ClassName = "BA",
+                            GradeID = 12,
+                            SectionName = "Boys"
+                        },
+                        new
+                        {
+                            GradeClassID = 53,
+                            ClassName = "BB",
+                            GradeID = 12,
+                            SectionName = "Boys"
                         });
                 });
 
@@ -641,9 +1059,170 @@ namespace Sunrise.DataAccess.Migrations
                         new
                         {
                             NationalityID = 1,
-                            NationalityARFemale = "12",
-                            NationalityARMale = "مصر",
-                            NationalityEN = "Egypt"
+                            NationalityARFemale = "مصرية",
+                            NationalityARMale = "مصري",
+                            NationalityEN = "Egyptian"
+                        },
+                        new
+                        {
+                            NationalityID = 2,
+                            NationalityARFemale = "سعودية",
+                            NationalityARMale = "سعودي",
+                            NationalityEN = "Saudi"
+                        },
+                        new
+                        {
+                            NationalityID = 3,
+                            NationalityARFemale = "فلسطينية",
+                            NationalityARMale = "فلسطيني",
+                            NationalityEN = "Palestinian"
+                        },
+                        new
+                        {
+                            NationalityID = 4,
+                            NationalityARFemale = "يمنية",
+                            NationalityARMale = "يمني",
+                            NationalityEN = "Yemeni"
+                        },
+                        new
+                        {
+                            NationalityID = 5,
+                            NationalityARFemale = "سودانية",
+                            NationalityARMale = "سوداني",
+                            NationalityEN = "Sudanese"
+                        },
+                        new
+                        {
+                            NationalityID = 6,
+                            NationalityARFemale = "نيجيرية",
+                            NationalityARMale = "نيجيرى",
+                            NationalityEN = "Nigerian"
+                        },
+                        new
+                        {
+                            NationalityID = 7,
+                            NationalityARFemale = "لبنانية",
+                            NationalityARMale = "لبناني",
+                            NationalityEN = "Lebanese"
+                        },
+                        new
+                        {
+                            NationalityID = 8,
+                            NationalityARFemale = "ارترية",
+                            NationalityARMale = "ارترى",
+                            NationalityEN = "Eritrean"
+                        },
+                        new
+                        {
+                            NationalityID = 9,
+                            NationalityARFemale = "تركية",
+                            NationalityARMale = "تركى",
+                            NationalityEN = "Turkish"
+                        },
+                        new
+                        {
+                            NationalityID = 10,
+                            NationalityARFemale = "أردنية",
+                            NationalityARMale = "أردني",
+                            NationalityEN = "Jordanian"
+                        },
+                        new
+                        {
+                            NationalityID = 11,
+                            NationalityARFemale = "مغربية",
+                            NationalityARMale = "مغربي",
+                            NationalityEN = "Moroccan"
+                        },
+                        new
+                        {
+                            NationalityID = 12,
+                            NationalityARFemale = "بريطانية",
+                            NationalityARMale = "بريطاني",
+                            NationalityEN = "British"
+                        },
+                        new
+                        {
+                            NationalityID = 13,
+                            NationalityARFemale = "سورية",
+                            NationalityARMale = "سوري",
+                            NationalityEN = "Syrian"
+                        },
+                        new
+                        {
+                            NationalityID = 14,
+                            NationalityARFemale = "كينية",
+                            NationalityARMale = "كيني",
+                            NationalityEN = "Kenyan"
+                        },
+                        new
+                        {
+                            NationalityID = 15,
+                            NationalityARFemale = "صومالية",
+                            NationalityARMale = "صومالي",
+                            NationalityEN = "Somali"
+                        },
+                        new
+                        {
+                            NationalityID = 16,
+                            NationalityARFemale = "تشادية",
+                            NationalityARMale = "تشادى",
+                            NationalityEN = "Chadian"
+                        },
+                        new
+                        {
+                            NationalityID = 17,
+                            NationalityARFemale = "افغانية",
+                            NationalityARMale = "افغاني",
+                            NationalityEN = "Afghan"
+                        },
+                        new
+                        {
+                            NationalityID = 18,
+                            NationalityARFemale = "مالية",
+                            NationalityARMale = "مالى",
+                            NationalityEN = "Malian"
+                        },
+                        new
+                        {
+                            NationalityID = 19,
+                            NationalityARFemale = "باكستانية",
+                            NationalityARMale = "باكستانى",
+                            NationalityEN = "Pakistani"
+                        },
+                        new
+                        {
+                            NationalityID = 20,
+                            NationalityARFemale = "هندية",
+                            NationalityARMale = "هندي",
+                            NationalityEN = "Indian"
+                        },
+                        new
+                        {
+                            NationalityID = 21,
+                            NationalityARFemale = "أمريكية",
+                            NationalityARMale = "أمريكي",
+                            NationalityEN = "American"
+                        },
+                        new
+                        {
+                            NationalityID = 22,
+                            NationalityARFemale = "اثيوبية",
+                            NationalityARMale = "اثيوبي",
+                            NationalityEN = "Ethiopian"
+                        },
+                        new
+                        {
+                            NationalityID = 23,
+                            NationalityARFemale = "تونسية",
+                            NationalityARMale = "تونسي",
+                            NationalityEN = "Tunisian"
+                        },
+                        new
+                        {
+                            NationalityID = 24,
+                            NationalityARFemale = "جزائرية",
+                            NationalityARMale = "جزائري",
+                            NationalityEN = "Algerian"
                         });
                 });
 
@@ -678,23 +1257,23 @@ namespace Sunrise.DataAccess.Migrations
 
             modelBuilder.Entity("Sunrise.Models.Student", b =>
                 {
-                    b.Property<int>("StudentID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("StudentID")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentID"));
-
-                    b.Property<DateOnly>("AdmissionDate")
+                    b.Property<DateOnly?>("AdmissionDate")
                         .HasColumnType("date");
 
                     b.Property<bool>("AuditorFlag")
                         .HasColumnType("bit");
 
-                    b.Property<DateOnly>("BirthDate")
+                    b.Property<DateOnly?>("BirthDate")
                         .HasColumnType("date");
 
-                    b.Property<int>("BirthPlaceID")
+                    b.Property<int?>("BirthPlaceID")
                         .HasColumnType("int");
+
+                    b.Property<bool>("BlockFlag")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("BusFlag")
                         .HasColumnType("bit");
@@ -719,14 +1298,12 @@ namespace Sunrise.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly>("IDEndDate")
+                    b.Property<DateOnly?>("IDEndDate")
                         .HasColumnType("date");
 
                     b.Property<string>("IDNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("MatexParentID")
@@ -735,7 +1312,7 @@ namespace Sunrise.DataAccess.Migrations
                     b.Property<int?>("MatexStudentID")
                         .HasColumnType("int");
 
-                    b.Property<int>("NationalityID")
+                    b.Property<int?>("NationalityID")
                         .HasColumnType("int");
 
                     b.Property<string>("ParentPhone1")
@@ -743,17 +1320,15 @@ namespace Sunrise.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ParentPhones2")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Passport")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly>("PassportEndDate")
+                    b.Property<DateOnly?>("PassportEndDate")
                         .HasColumnType("date");
 
-                    b.Property<int>("PreviousSchoolID")
+                    b.Property<int?>("PreviousSchoolID")
                         .HasColumnType("int");
 
                     b.Property<int>("StudentActiveFlag")
@@ -768,8 +1343,13 @@ namespace Sunrise.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StudentPhone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TemporaryClassID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("TmpFlag")
+                        .HasColumnType("bit");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -786,36 +1366,9 @@ namespace Sunrise.DataAccess.Migrations
 
                     b.HasIndex("PreviousSchoolID");
 
-                    b.ToTable("Students");
+                    b.HasIndex("TemporaryClassID");
 
-                    b.HasData(
-                        new
-                        {
-                            StudentID = 1,
-                            AdmissionDate = new DateOnly(2024, 10, 20),
-                            AuditorFlag = false,
-                            BirthDate = new DateOnly(2024, 10, 20),
-                            BirthPlaceID = 1,
-                            BusFlag = false,
-                            BusID = 1,
-                            BusSubscription = "ذهاب",
-                            CreatedBy = "moaz",
-                            CurrentClassID = 1,
-                            DateCreated = new DateTime(2024, 10, 20, 22, 18, 15, 878, DateTimeKind.Local).AddTicks(9678),
-                            Gender = "Male",
-                            IDEndDate = new DateOnly(2024, 10, 20),
-                            IDNumber = "12",
-                            NationalityID = 1,
-                            ParentPhone1 = "111",
-                            ParentPhones2 = "222",
-                            Passport = "A12",
-                            PassportEndDate = new DateOnly(2024, 10, 20),
-                            PreviousSchoolID = 1,
-                            StudentActiveFlag = 0,
-                            StudentNameAR = "معاذ",
-                            StudentNameEN = "Moaz",
-                            StudentPhone = "333"
-                        });
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("Sunrise.Models.Subject", b =>
@@ -973,6 +1526,10 @@ namespace Sunrise.DataAccess.Migrations
                     b.Property<int>("ClassID")
                         .HasColumnType("int");
 
+                    b.Property<string>("PermissionType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("SubjectID")
                         .HasColumnType("int");
 
@@ -1022,9 +1579,9 @@ namespace Sunrise.DataAccess.Migrations
                         {
                             YearID = 1,
                             ActiveFlag = true,
-                            AddmissionDate = new DateOnly(2024, 10, 20),
-                            YearAR = "1444-1445",
-                            YearEN = "2020-2021"
+                            AddmissionDate = new DateOnly(2024, 11, 30),
+                            YearAR = "1445-1446",
+                            YearEN = "2024-2025"
                         });
                 });
 
@@ -1236,9 +1793,7 @@ namespace Sunrise.DataAccess.Migrations
                 {
                     b.HasOne("Sunrise.Models.Country", "CountryBirth")
                         .WithMany()
-                        .HasForeignKey("BirthPlaceID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BirthPlaceID");
 
                     b.HasOne("Sunrise.Models.Bus", "Bus")
                         .WithMany()
@@ -1252,15 +1807,15 @@ namespace Sunrise.DataAccess.Migrations
 
                     b.HasOne("Sunrise.Models.Nationality", "Nationality")
                         .WithMany()
-                        .HasForeignKey("NationalityID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("NationalityID");
 
                     b.HasOne("Sunrise.Models.PreviousSchool", "PreviousSchool")
                         .WithMany()
-                        .HasForeignKey("PreviousSchoolID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PreviousSchoolID");
+
+                    b.HasOne("Sunrise.Models.GradeClass", "TemporaryClass")
+                        .WithMany()
+                        .HasForeignKey("TemporaryClassID");
 
                     b.Navigation("Bus");
 
@@ -1271,6 +1826,8 @@ namespace Sunrise.DataAccess.Migrations
                     b.Navigation("Nationality");
 
                     b.Navigation("PreviousSchool");
+
+                    b.Navigation("TemporaryClass");
                 });
 
             modelBuilder.Entity("Sunrise.Models.TeacherPermission", b =>

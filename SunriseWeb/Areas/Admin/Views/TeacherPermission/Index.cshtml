@@ -1,4 +1,4 @@
-﻿@model Dictionary<int, List<TeacherPermission>>
+﻿@model Dictionary<Subject, List<TeacherPermission>>
 
 <div class="card container">
     <div class="row pt-4 pb-3">
@@ -24,50 +24,66 @@
 
     @foreach (var entry in @Model)
     {
-        <p>SubjectID: @entry.Key</p>
-        foreach (var permission in entry.Value)
-        {
-            <p>TeacherPermissionID: @permission.TeacherPermissionID, UserID: @permission.UserID, ClassID: @permission.ClassID, ActiveFlag: @permission.AcitveFlag</p>
-        }
-    }
-
-
-    @*<table class="table table-bordered table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Bus ID</th>
-                <th>Bus number</th>
-                <th>Driver Name</th>
-                <th>Driver Phone</th>
-                <th>Bus Plate</th>
-                <th>Bus Path</th>
-                <th>Bus Type</th>
-
-
-            </tr>
-        </thead>
-        <tbody>
-             @foreach (var bus in Model.OrderBy(u => u.BusID))
+        <h2>@entry.Key.SubjectNameEN</h2>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Grade</th>
+                    <th>Class</th>
+                    <th>Type</th>
+                    <th>Active</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var permission in entry.Value)
             {
                 <tr>
-                    <td>@bus.BusID</td>
-                    <td>@bus.BusNumber</td>
-                    <td>@bus.DriverName</td>
-                    <td>@bus.DriverPhone</td>
-                    <td>@bus.BusPlate</td>
-                    <td>@bus.BusPath</td>
-                    <td>@bus.BusType</td>
-
-
-                    <td> 
+                    <td>@permission.Class.Grade.GradeName</td>
+                    <td>@permission.Class.ClassName</td>
+                    <td>Type</td>
+                    <td>@permission.AcitveFlag</td>
+                    <td>
                         <div class="w-75 btn-group" role="group">
-                            <a asp-controller="Bus" asp-action="Upsert" asp-route-id="@bus.BusID" class="btn btn-primary" style="height:40px">
-                                <i class="bi bi-pencil-square" style="position: relative; top:-8px;"></i>
-                            </a>
+                                <a class="btn btn-primary delete-button" data-id="@permission.TeacherPermissionID" style="height:40px">
+                                    <i class="bi bi-trash-fill" style="position: relative; top:-8px;"></i>
+                                </a>
+                            @* <a asp-controller="TeacherPermission" asp-action="Delete" asp-route-id="@permission.TeacherPermissionID" class="btn btn-primary" style="height:40px">
+                                <i class="bi bi-trash-fill" style="position: relative; top:-8px;"></i>
+                            </a> *@
                         </div>
                     </td>
                 </tr>
-            } 
-        </tbody>
-    </table>*@
+            }
+            </tbody>
+        </table>
+    }
 </div>
+
+<script>
+    $(document).ready(function () {
+        // Attach click event handler to delete buttons
+        $('.delete-button').on('click', function (e) {
+            // e.preventDefault(); // Prevent default link behavior
+
+            // Get the TeacherPermissionID from the button
+            var teacherPermissionID = $(this).data('id');
+
+            // Show SweetAlert confirmation
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to the delete action on confirmation
+                    window.location.href = '/Admin/TeacherPermission/Delete/' + teacherPermissionID;
+                }
+            });
+        });
+    });
+</script>

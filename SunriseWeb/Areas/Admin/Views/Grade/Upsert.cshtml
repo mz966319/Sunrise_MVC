@@ -21,12 +21,18 @@
                         <span asp-validation-for="GradeName" class="text-danger"></span>
                     </div>
                     <div class="col-6 form-label mb-3">
+                        <label asp-for="GradeLevel" for="floatingInput" class="float-right" style="text-align:right;"></label>
+                        <input asp-for="GradeLevel" class="form-control mt-2">
+                        <span asp-validation-for="GradeLevel" class="text-danger"></span>
+
+                    </div>
+                    @* <div class="col-6 form-label mb-3">
                         <label class="form-label" asp-for="SchoolName"></label>
                         <select class="form-select" asp-for="SchoolName">
                             <option>B</option>
                             <option>G</option>
                         </select>
-                    </div>
+                    </div> *@
                 </div>
                 
                 
@@ -44,15 +50,15 @@
 
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-3"></div>
-                <div class="col-6 form-floating mb-3 center">
-                    <input asp-for="GradeLevel" class="form-control" id="floatingInput" placeholder="">
-                    <label asp-for="GradeLevel" for="floatingInput" class="float-right" style="text-align:right;"></label>
-                    <span asp-validation-for="GradeLevel" class="text-danger"></span>
+                @* <div class="row"> *@
+                @*     <div class="col-3"></div> *@
+                @* <div class="col-6 form-floating mb-3 center"> *@
+                @*     <input asp-for="GradeLevel" class="form-control" id="floatingInput" placeholder=""> *@
+                @*     <label asp-for="GradeLevel" for="floatingInput" class="float-right" style="text-align:right;"></label> *@
+                @*     <span asp-validation-for="GradeLevel" class="text-danger"></span> *@
 
-                </div>
-                </div>
+                @* </div> *@
+                @* </div> *@
 
 
 
@@ -67,7 +73,7 @@
                         <button type="submit" class="btn btn-outline-primary btn-lg " style="width:25%">Createe</button>
 
                     }
-                    <a asp-controller="Country" asp-action="Index" class="btn btn-outline-secondary float-end">Back</a>
+                    <a asp-controller="Grade" asp-action="Index" class="btn btn-outline-secondary float-end">Back</a>
 
                 </div>
 

@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sunrise.Models\Sunrise.Models.csproj" />
-    <ProjectReference Include="..\Sunrise.Utility\Sunrise.Utility.csproj" />
   </ItemGroup>
 
 </Project>

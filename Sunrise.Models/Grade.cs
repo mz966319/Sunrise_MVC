@@ -16,9 +16,9 @@ namespace Sunrise.Models
         [Required]
         [DisplayName("Grade Name")]
         public string GradeName { get; set; }
-        [Required]
-        [DisplayName("School Name")]
-        public string SchoolName { get; set; }
+        //[Required]
+        //[DisplayName("School Name")]
+        //public string SchoolName { get; set; }
 
         [DisplayName("اسم المرحلة في الشهادة")]
         [Required]

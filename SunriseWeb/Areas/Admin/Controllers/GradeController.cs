@@ -7,6 +7,7 @@ using Sunrise.Utility;
 namespace SunriseWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Super_Admin)]
     [Authorize(Roles =SD.Role_Admin+","+ SD.Role_Super_Admin)]
 
     public class GradeController : Controller

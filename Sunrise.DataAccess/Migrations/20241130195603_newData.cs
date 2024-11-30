@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Sunrise.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class i12 : Migration
+    public partial class newData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -94,7 +94,6 @@ namespace Sunrise.DataAccess.Migrations
                     GradeID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GradeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SchoolName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CertificateNameAR = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CertificateNameEN = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GradeLevel = table.Column<int>(type: "int", nullable: false)
@@ -279,6 +278,7 @@ namespace Sunrise.DataAccess.Migrations
                     GradeClassID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ClassName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SectionName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GradeID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -351,34 +351,36 @@ namespace Sunrise.DataAccess.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    StudentID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StudentID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     StudentNameEN = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentNameAR = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IDNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IDEndDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    Passport = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PassportEndDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    AdmissionDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    BirthDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IDNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IDEndDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    Passport = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PassportEndDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    AdmissionDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    BirthDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StudentActiveFlag = table.Column<int>(type: "int", nullable: false),
                     AuditorFlag = table.Column<bool>(type: "bit", nullable: false),
                     ParentPhone1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ParentPhones2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StudentPhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ParentPhones2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentPhone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MatexStudentID = table.Column<int>(type: "int", nullable: true),
                     MatexParentID = table.Column<int>(type: "int", nullable: true),
                     BusFlag = table.Column<bool>(type: "bit", nullable: false),
+                    TmpFlag = table.Column<bool>(type: "bit", nullable: false),
+                    BlockFlag = table.Column<bool>(type: "bit", nullable: false),
                     BusSubscription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NationalityID = table.Column<int>(type: "int", nullable: false),
-                    BirthPlaceID = table.Column<int>(type: "int", nullable: false),
-                    PreviousSchoolID = table.Column<int>(type: "int", nullable: false),
+                    NationalityID = table.Column<int>(type: "int", nullable: true),
+                    BirthPlaceID = table.Column<int>(type: "int", nullable: true),
+                    PreviousSchoolID = table.Column<int>(type: "int", nullable: true),
                     CurrentClassID = table.Column<int>(type: "int", nullable: false),
+                    TemporaryClassID = table.Column<int>(type: "int", nullable: true),
                     BusID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -393,8 +395,7 @@ namespace Sunrise.DataAccess.Migrations
                         name: "FK_Students_Countries_BirthPlaceID",
                         column: x => x.BirthPlaceID,
                         principalTable: "Countries",
-                        principalColumn: "CountryID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CountryID");
                     table.ForeignKey(
                         name: "FK_Students_GradeClasses_CurrentClassID",
                         column: x => x.CurrentClassID,
@@ -402,16 +403,54 @@ namespace Sunrise.DataAccess.Migrations
                         principalColumn: "GradeClassID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Students_GradeClasses_TemporaryClassID",
+                        column: x => x.TemporaryClassID,
+                        principalTable: "GradeClasses",
+                        principalColumn: "GradeClassID");
+                    table.ForeignKey(
                         name: "FK_Students_Nationalities_NationalityID",
                         column: x => x.NationalityID,
                         principalTable: "Nationalities",
-                        principalColumn: "NationalityID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "NationalityID");
                     table.ForeignKey(
                         name: "FK_Students_PreviousSchools_PreviousSchoolID",
                         column: x => x.PreviousSchoolID,
                         principalTable: "PreviousSchools",
-                        principalColumn: "PreviousSchoolID",
+                        principalColumn: "PreviousSchoolID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TeacherPermissions",
+                columns: table => new
+                {
+                    TeacherPermissionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PermissionType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    SubjectID = table.Column<int>(type: "int", nullable: false),
+                    ClassID = table.Column<int>(type: "int", nullable: false),
+                    AcitveFlag = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeacherPermissions", x => x.TeacherPermissionID);
+                    table.ForeignKey(
+                        name: "FK_TeacherPermissions_AspNetUsers_UserID",
+                        column: x => x.UserID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TeacherPermissions_GradeClasses_ClassID",
+                        column: x => x.ClassID,
+                        principalTable: "GradeClasses",
+                        principalColumn: "GradeClassID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TeacherPermissions_Subjects_SubjectID",
+                        column: x => x.SubjectID,
+                        principalTable: "Subjects",
+                        principalColumn: "SubjectID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -422,17 +461,17 @@ namespace Sunrise.DataAccess.Migrations
                     CurrentControlID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     YearSemesterID = table.Column<int>(type: "int", nullable: false),
-                    GradeID = table.Column<int>(type: "int", nullable: false),
-                    StudentID = table.Column<int>(type: "int", nullable: false),
+                    ClassID = table.Column<int>(type: "int", nullable: false),
+                    StudentID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     SubjectID = table.Column<int>(type: "int", nullable: false),
                     Quiz1 = table.Column<int>(type: "int", nullable: false),
-                    Quiz2 = table.Column<int>(type: "int", nullable: false),
-                    Quiz3 = table.Column<int>(type: "int", nullable: false),
+                    Quiz2 = table.Column<int>(type: "int", nullable: true),
+                    Quiz3 = table.Column<int>(type: "int", nullable: true),
                     ClassWork = table.Column<int>(type: "int", nullable: false),
                     HomeWork = table.Column<int>(type: "int", nullable: false),
-                    Behaviour = table.Column<int>(type: "int", nullable: false),
+                    Behaviour = table.Column<int>(type: "int", nullable: true),
                     Project = table.Column<int>(type: "int", nullable: false),
-                    Practical = table.Column<int>(type: "int", nullable: false),
+                    Practical = table.Column<int>(type: "int", nullable: true),
                     ExamMark = table.Column<int>(type: "int", nullable: false),
                     Absent = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -467,37 +506,83 @@ namespace Sunrise.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "Countries",
                 columns: new[] { "CountryID", "CountryNameAR", "CountryNameEN" },
-                values: new object[] { 1, "معاذ", "Moaz" });
+                values: new object[,]
+                {
+                    { 1, "مصر", "Egypt" },
+                    { 2, "السعودية", "Saudi Arabia" },
+                    { 3, "فلسطين", "Palestine" },
+                    { 4, "اليمن", "Yemen" },
+                    { 5, "السودان", "Sudan" },
+                    { 6, "نيجيريا", "Nigeria" },
+                    { 7, "لبنان", "Lebanon" },
+                    { 8, "إرتريا", "Eritrea" },
+                    { 9, "تركيا", "Turkey" },
+                    { 10, "الأردن", "Jordan" },
+                    { 11, "المغرب", "Morocco" },
+                    { 12, "بريطانيا", "United Kingdom" },
+                    { 13, "سوريا", "Syria" },
+                    { 14, "كينيا", "Kenya" },
+                    { 15, "الصومال", "Somalia" },
+                    { 16, "تشاد", "Chad" },
+                    { 17, "أفغانستان", "Afghanistan" },
+                    { 18, "مالي", "Mali" },
+                    { 19, "باكستان", "Pakistan" },
+                    { 20, "الهند", "India" },
+                    { 21, "الولايات المتحدة الأمريكية", "United States of America" },
+                    { 22, "إثيوبيا", "Ethiopia" },
+                    { 23, "تونس", "Tunisia" },
+                    { 24, "الجزائر", "Algeria" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Grades",
-                columns: new[] { "GradeID", "CertificateNameAR", "CertificateNameEN", "GradeLevel", "GradeName", "SchoolName" },
+                columns: new[] { "GradeID", "CertificateNameAR", "CertificateNameEN", "GradeLevel", "GradeName" },
                 values: new object[,]
                 {
-                    { 1, "روضة أول", "Kindergarten first grade", -1, "KG 1", "G" },
-                    { 2, "روضة ثاني", "Kindergarten Seconde grade", -2, "KG 2", "G" },
-                    { 3, "روضة ثالث", "Kindergarten Third grade", -3, "KG 3", "G" },
-                    { 4, "الصف الأول الابتدائى", "Elementary first grade", 1, "Grad 1", "G" },
-                    { 5, "الصف الثانى الابتدائى", "Elementary Seconde grade", 2, "Grad 2", "G" },
-                    { 6, "الصف الثالث الابتدائى", "Elementary Third grade", 3, "Grad 3", "G" },
-                    { 7, "الصف الرابع الابتدائى", "Elementary Fourth grade", 4, "Grad 4 B", "B" },
-                    { 8, "الصف الرابع الابتدائي", "Elementary Fourth grade", 4, "Grad 4 G", "G" },
-                    { 9, "الصف الخامس الابتدائى", "Elementary Fifth grade", 5, "Grad 5 B", "B" },
-                    { 10, "الصف الخامس الابتدائى", "Elementary Fifth grade", 5, "Grad 5 G", "G" },
-                    { 11, "الصف السادس الابتدائى", "Elementary Sixth grade", 6, "Grad 6 B", "B" },
-                    { 12, "الصف السادس الابتدائى", "Elementary Sixth grade", 6, "Grad 6 G", "G" },
-                    { 13, "الصف الأول المتوسط", "Intermediate First grade", 7, "Grad 7 B", "B" },
-                    { 14, "الصف الأول المتوسط", "Intermediate First grade", 7, "Grad 7 G", "G" },
-                    { 15, "الصف الثانى المتوسط", "Intermediate Second grade", 8, "Grad 8 B", "B" },
-                    { 16, "الصف الثانى المتوسط", "Intermediate Second grade", 8, "Grad 8 G", "G" },
-                    { 17, "الصف الثالث المتوسط", "Intermediate third grade", 9, "Grad 9 B", "B" },
-                    { 18, "الصف الثالث المتوسط", "Intermediate third grade", 9, "Grad 9 G", "G" }
+                    { 1, "روضة أول", "Kindergarten First Grade", -1, "KG 1" },
+                    { 2, "روضة ثاني", "Kindergarten Seconde Grade", -2, "KG 2" },
+                    { 3, "روضة ثالث", "Kindergarten Third Grade", -3, "KG 3" },
+                    { 4, "الصف الأول الابتدائى", "Elementary First Grade", 1, "Grade 1" },
+                    { 5, "الصف الثانى الابتدائى", "Elementary Seconde Grade", 2, "Grade 2" },
+                    { 6, "الصف الثالث الابتدائى", "Elementary Third Grade", 3, "Grade 3" },
+                    { 7, "الصف الرابع الابتدائى", "Elementary Fourth Grade", 4, "Grade 4" },
+                    { 8, "الصف الخامس الابتدائى", "Elementary Fifth Grade", 5, "Grade 5" },
+                    { 9, "الصف السادس الابتدائى", "Elementary Sixth Grade", 6, "Grade 6" },
+                    { 10, "الصف الأول المتوسط", "Intermediate First Grade", 7, "Grade 7" },
+                    { 11, "الصف الثانى المتوسط", "Intermediate Second Grade", 8, "Grade 8" },
+                    { 12, "الصف الثالث المتوسط", "Intermediate Third Grade", 9, "Grade 9" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Nationalities",
                 columns: new[] { "NationalityID", "NationalityARFemale", "NationalityARMale", "NationalityEN" },
-                values: new object[] { 1, "12", "مصر", "Egypt" });
+                values: new object[,]
+                {
+                    { 1, "مصرية", "مصري", "Egyptian" },
+                    { 2, "سعودية", "سعودي", "Saudi" },
+                    { 3, "فلسطينية", "فلسطيني", "Palestinian" },
+                    { 4, "يمنية", "يمني", "Yemeni" },
+                    { 5, "سودانية", "سوداني", "Sudanese" },
+                    { 6, "نيجيرية", "نيجيرى", "Nigerian" },
+                    { 7, "لبنانية", "لبناني", "Lebanese" },
+                    { 8, "ارترية", "ارترى", "Eritrean" },
+                    { 9, "تركية", "تركى", "Turkish" },
+                    { 10, "أردنية", "أردني", "Jordanian" },
+                    { 11, "مغربية", "مغربي", "Moroccan" },
+                    { 12, "بريطانية", "بريطاني", "British" },
+                    { 13, "سورية", "سوري", "Syrian" },
+                    { 14, "كينية", "كيني", "Kenyan" },
+                    { 15, "صومالية", "صومالي", "Somali" },
+                    { 16, "تشادية", "تشادى", "Chadian" },
+                    { 17, "افغانية", "افغاني", "Afghan" },
+                    { 18, "مالية", "مالى", "Malian" },
+                    { 19, "باكستانية", "باكستانى", "Pakistani" },
+                    { 20, "هندية", "هندي", "Indian" },
+                    { 21, "أمريكية", "أمريكي", "American" },
+                    { 22, "اثيوبية", "اثيوبي", "Ethiopian" },
+                    { 23, "تونسية", "تونسي", "Tunisian" },
+                    { 24, "جزائرية", "جزائري", "Algerian" }
+                });
 
             migrationBuilder.InsertData(
                 table: "PreviousSchools",
@@ -526,12 +611,67 @@ namespace Sunrise.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "Years",
                 columns: new[] { "YearID", "ActiveFlag", "AddmissionDate", "YearAR", "YearEN" },
-                values: new object[] { 1, true, new DateOnly(2024, 10, 20), "1444-1445", "2020-2021" });
+                values: new object[] { 1, true, new DateOnly(2024, 11, 30), "1445-1446", "2024-2025" });
 
             migrationBuilder.InsertData(
                 table: "GradeClasses",
-                columns: new[] { "GradeClassID", "ClassName", "GradeID" },
-                values: new object[] { 1, "BA", 1 });
+                columns: new[] { "GradeClassID", "ClassName", "GradeID", "SectionName" },
+                values: new object[,]
+                {
+                    { 1, "A", 1, "Girls" },
+                    { 2, "A", 2, "Girls" },
+                    { 3, "B", 2, "Girls" },
+                    { 4, "C", 2, "Girls" },
+                    { 5, "D", 2, "Girls" },
+                    { 6, "E", 2, "Girls" },
+                    { 7, "A", 3, "Girls" },
+                    { 8, "B", 3, "Girls" },
+                    { 9, "C", 3, "Girls" },
+                    { 10, "D", 3, "Girls" },
+                    { 11, "E", 3, "Girls" },
+                    { 12, "BA", 4, "Girls" },
+                    { 13, "BB", 4, "Girls" },
+                    { 14, "BC", 4, "Girls" },
+                    { 15, "GA", 4, "Girls" },
+                    { 16, "GB", 4, "Girls" },
+                    { 17, "GC", 4, "Girls" },
+                    { 18, "BA", 5, "Girls" },
+                    { 19, "BB", 5, "Girls" },
+                    { 20, "BC", 5, "Girls" },
+                    { 21, "GA", 5, "Girls" },
+                    { 22, "GB", 5, "Girls" },
+                    { 23, "GC", 5, "Girls" },
+                    { 24, "BA", 6, "Girls" },
+                    { 25, "BB", 6, "Girls" },
+                    { 26, "BC", 6, "Girls" },
+                    { 27, "GA", 6, "Girls" },
+                    { 28, "GB", 6, "Girls" },
+                    { 29, "GC", 6, "Girls" },
+                    { 30, "GA", 7, "Girls" },
+                    { 31, "GB", 7, "Girls" },
+                    { 32, "GA", 8, "Girls" },
+                    { 33, "GB", 8, "Girls" },
+                    { 34, "GA", 9, "Girls" },
+                    { 35, "GB", 9, "Girls" },
+                    { 36, "GA", 10, "Girls" },
+                    { 37, "GB", 10, "Girls" },
+                    { 38, "GA", 11, "Girls" },
+                    { 39, "GB", 11, "Girls" },
+                    { 40, "GA", 12, "Girls" },
+                    { 41, "GB", 12, "Girls" },
+                    { 42, "BA", 7, "Boys" },
+                    { 43, "BB", 7, "Boys" },
+                    { 44, "BA", 8, "Boys" },
+                    { 45, "BB", 8, "Boys" },
+                    { 46, "BA", 9, "Boys" },
+                    { 47, "BB", 9, "Boys" },
+                    { 48, "BA", 10, "Boys" },
+                    { 49, "BB", 10, "Boys" },
+                    { 50, "BA", 11, "Boys" },
+                    { 51, "BB", 11, "Boys" },
+                    { 52, "BA", 12, "Boys" },
+                    { 53, "BB", 12, "Boys" }
+                });
 
             migrationBuilder.InsertData(
                 table: "YearManagers",
@@ -542,16 +682,6 @@ namespace Sunrise.DataAccess.Migrations
                 table: "YearSemesters",
                 columns: new[] { "YearSemesterID", "ActiveFlag", "FinalMark", "QuizCount", "SemesterNameAR", "SemesterNameEN", "SemesterNumber", "YearID" },
                 values: new object[] { 1, true, 25, 2, "الفصل الدراسي الأول", "First Semester", 1, 1 });
-
-            migrationBuilder.InsertData(
-                table: "Students",
-                columns: new[] { "StudentID", "AdmissionDate", "AuditorFlag", "BirthDate", "BirthPlaceID", "BusFlag", "BusID", "BusSubscription", "CreatedBy", "CurrentClassID", "DateCreated", "DateUpdated", "Gender", "IDEndDate", "IDNumber", "MatexParentID", "MatexStudentID", "NationalityID", "ParentPhone1", "ParentPhones2", "Passport", "PassportEndDate", "PreviousSchoolID", "StudentActiveFlag", "StudentNameAR", "StudentNameEN", "StudentPhone", "UpdatedBy" },
-                values: new object[] { 1, new DateOnly(2024, 10, 20), false, new DateOnly(2024, 10, 20), 1, false, 1, "ذهاب", "moaz", 1, new DateTime(2024, 10, 20, 8, 42, 2, 1, DateTimeKind.Local).AddTicks(9789), null, "Male", new DateOnly(2024, 10, 20), "12", null, null, 1, "111", "222", "A12", new DateOnly(2024, 10, 20), 1, 0, "معاذ", "Moaz", "333", null });
-
-            migrationBuilder.InsertData(
-                table: "CurrentControls",
-                columns: new[] { "CurrentControlID", "Absent", "Behaviour", "ClassWork", "ExamMark", "GradeID", "HomeWork", "Practical", "Project", "Quiz1", "Quiz2", "Quiz3", "StudentID", "SubjectID", "YearSemesterID" },
-                values: new object[] { 1, true, 5, 0, 0, 1, 3, 9, 7, 1, 2, 3, 1, 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -638,6 +768,26 @@ namespace Sunrise.DataAccess.Migrations
                 column: "PreviousSchoolID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Students_TemporaryClassID",
+                table: "Students",
+                column: "TemporaryClassID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeacherPermissions_ClassID",
+                table: "TeacherPermissions",
+                column: "ClassID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeacherPermissions_SubjectID",
+                table: "TeacherPermissions",
+                column: "SubjectID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeacherPermissions_UserID",
+                table: "TeacherPermissions",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_YearManagers_GradeID",
                 table: "YearManagers",
                 column: "GradeID");
@@ -675,22 +825,25 @@ namespace Sunrise.DataAccess.Migrations
                 name: "CurrentControls");
 
             migrationBuilder.DropTable(
+                name: "TeacherPermissions");
+
+            migrationBuilder.DropTable(
                 name: "YearManagers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Students");
 
             migrationBuilder.DropTable(
-                name: "Subjects");
+                name: "YearSemesters");
 
             migrationBuilder.DropTable(
-                name: "YearSemesters");
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Subjects");
 
             migrationBuilder.DropTable(
                 name: "Busses");

@@ -20,6 +20,10 @@ namespace Sunrise.Models
         [DisplayName("Class Name")]
         public string ClassName { get; set; }
 
+        [Required]
+        [DisplayName("Section Name")]
+        public string SectionName { get; set; }
+
         public int GradeID { get; set; }
 
         [ForeignKey("GradeID")]

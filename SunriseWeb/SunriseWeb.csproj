@@ -25,11 +25,19 @@
   <ItemGroup>
     <ProjectReference Include="..\Sunrise.DataAccess\Sunrise.DataAccess.csproj" />
     <ProjectReference Include="..\Sunrise.Models\Sunrise.Models.csproj" />
+    <ProjectReference Include="..\Sunrise.Utility\Sunrise.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Pages\Account\DeletedMange\" />
-    <Folder Include="Controllers\" />
+    <Folder Include="wwwroot\uploads\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\Admin\Views\FilesReader\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

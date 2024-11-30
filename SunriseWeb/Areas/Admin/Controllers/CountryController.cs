@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Sunrise.DataAccess.Repository.IRepository;
 using Sunrise.Models;
 using Sunrise.Models.ViewModels;
+using Sunrise.Utility;
 
 namespace SunriseWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Super_Admin)]
     public class CountryController : Controller
     {
 
@@ -88,10 +91,10 @@ namespace SunriseWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult UpsertNationality(Nationality nationality)
         {
-            //if (nationality.NationalityARFemale.ToString() == nationality.NationalityARMale.ToString())
-            //{
-            //    ModelState.AddModelError("NationalityARFemale", "الجنسية بالعربي للبنين يجب ان تختلف عن الجنسية بالعربي للبنات");
-            //}
+            if (nationality.NationalityARFemale.ToString() == nationality.NationalityARMale.ToString())
+            {
+                ModelState.AddModelError("NationalityARFemale", "الجنسية بالعربي للبنين يجب ان تختلف عن الجنسية بالعربي للبنات");
+            }
 
             if (ModelState.IsValid)
             {
@@ -110,7 +113,7 @@ namespace SunriseWeb.Areas.Admin.Controllers
 
             }
             else
-                return View();
+                return View(nationality);
 
         }
     }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Sunrise.Models;
+using Sunrise.Utility;
 using System.Diagnostics;
 
 namespace SunriseWeb.Areas.Teacher.Controllers
@@ -30,5 +31,6 @@ namespace SunriseWeb.Areas.Teacher.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

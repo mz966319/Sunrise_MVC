@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sunrise.Utility
+﻿namespace Sunrise.Utility
 {
     public static class SD
     {
@@ -17,5 +11,36 @@ namespace Sunrise.Utility
         public const string Role_Accountant = "Accountant";
         public const string Role_Bus = "Bus";
         public const string Role_Null = "Null";
+
+
+        public const string Permission_Edit = "Edit";
+        public const string Permission_View = "View";
+
+
+        public const int Student_Status_Active = 0;
+        public const int Student_Status_Discontinued = 1;
+        public const int Student_Status_Withdrawal = 2;
+
+
+        public const int Control_Quiz1 = 10;
+        public const int Control_Quiz2 = 10;
+        public const int Control_ClassWork = 15;
+        public const int Control_HomeWork = 15;
+        public const int Control_Project = 10;
+        public const int Control_Exam = 40;
+
+
+        public const string All = "All";
+        public const int AllValue = -10;
+        public const string Boys = "Boys";
+        public const int BoysValue = -11;
+        public const string Girls = "Girls";
+        public const int GirlsValue = -12;
+
+
+
+
+
+
     }
 }

@@ -1,0 +1,83 @@
+﻿@model ControlReportsViewModel
+
+<div class="row card shadow border-0 mt-4">
+    <div class="row pt-4 pb-1">
+        <div class="col-12">
+            <h2 class="text-primary" style="text-align: center;"> Semester Reports</h2>
+        </div>
+    </div>
+    <form method="post" target="_blank" class="row ">
+        <div class="col-12 border p-3">
+            <!-- Year, Semester, Grade, Class, Student -->
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <!-- Year Dropdown -->
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="yearSelect">Year</label>
+                        <select id="YearID" asp-for="YearID" asp-items="Model.YearsList" class="form-select form-select-sm">
+                            <option disabled selected>--Select Year--</option>
+                        </select>
+                    </div>
+
+                    <!-- Semester Dropdown -->
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="semesterSelect">Semester</label>
+                        <select id="semesterID" asp-for="SemesterID" asp-items="Model.SemestersList" class="form-select form-select-sm">
+                            <option disabled selected>--Select Semester--</option>
+                        </select>
+                        <span asp-validation-for="SemesterID" class="text-danger"></span>
+                    </div>
+
+                    <!-- Grade Dropdown -->
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="gradeSelect">Grade</label>
+                        <select id="gradeID" asp-for="GradeID" asp-items="Model.GradesList" class="form-select form-select-sm">
+                            <option disabled selected>--Select Grade--</option>
+                            <option value=@SD.AllValue >-@SD.All-</option>
+                            <option value=@SD.BoysValue>-@SD.Boys-</option>
+                            <option value=@SD.GirlsValue>-@SD.Girls-</option>
+                        </select>
+                        <span asp-validation-for="GradeID" class="text-danger"></span>
+                    </div>
+
+                    <!-- Class Dropdown -->
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="classSelect">Class</label>
+                        <select id="classID" asp-for="ClassID" asp-items="Model.ClassesList" class="form-select form-select-sm">
+                            <option disabled selected>--Select Class--</option>
+                            <option value=@SD.AllValue>-@SD.All-</option>
+                        </select>
+                    </div>
+
+                    <!-- Student Dropdown -->
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="studentSelect">Student</label>
+                        <select id="studentID" asp-for="StudentID" asp-items="Model.StudentsList" class="form-select form-select-sm" >
+                            <option disabled selected>--Select Student--</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-4 mt-4">
+                        <button type="submit" class="btn btn-outline-primary  btn-sm w-100" formaction="@Url.Action("GenerateSemesterReports", "ControlReports")">Generate PDF</button>
+                    </div>
+                    @* <form action="/Admin/Student/CreatePDF" target="_blank" method="get">
+                        <button type="submit" class="btn btn-primary">View PDF Report</button>
+                    </form> *@
+                </div>
+            </div>
+        </div>
+
+    </form>
+    
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script src="~/js/controlReports.js"></script>
+
+
+}
+
+
+

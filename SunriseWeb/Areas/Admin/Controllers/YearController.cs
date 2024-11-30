@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Sunrise.DataAccess.Repository.IRepository;
 using Sunrise.Models;
 using Sunrise.Models.ViewModels;
+using Sunrise.Utility;
 
 namespace SunriseWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Super_Admin)]
     public class YearController : Controller
     {
 
@@ -18,7 +21,7 @@ namespace SunriseWeb.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            List<Year> objectYearsList = _unitOfWork.Year.GetAll().ToList();
+            List<Year> objectYearsList = _unitOfWork.Year.GetAll().OrderByDescending(y => y.AddmissionDate).ToList();
             return View(objectYearsList);
         }
 
@@ -70,10 +73,7 @@ namespace SunriseWeb.Areas.Admin.Controllers
             else
             {
                 return View();
-                // **Re-populate Semesters and Managers if ModelState is Invalid**
-                //yearViewModel.Semesters = _unitOfWork.YearSemester.GetList(u => u.YearID == yearViewModel.Year.YearID).ToList();
-                //yearViewModel.Managers = _unitOfWork.YearManager.GetList(u => u.YearID == yearViewModel.Year.YearID).ToList();
-                //return View(yearViewModel);
+
             }
         }
 

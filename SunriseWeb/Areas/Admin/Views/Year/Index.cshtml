@@ -1,16 +1,16 @@
 ﻿@model List<Year>
 
-
+<
 <div class="card container">
     <div class="row pt-4 pb-3">
         <div class="col-6">
-            <h2 class="text-primary">Years List</h2>
+            <h2 class="text-primary">Academic Years</h2>
         </div>
 
 
         <div >
             <a asp-controller="Year" asp-action="Upsert" class="btn btn-primary" style="width:100%">
-                <i class="bi bi-plus-circle"></i> Add New Year
+                <i class="bi bi-plus-circle"></i> Add Academic Year
             </a>
         </div>
 
@@ -27,7 +27,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var year in Model.OrderBy(u => u.YearID))
+            @foreach (var year in Model)
             {
                 <tr>
                     <td>@year.YearID</td>
@@ -56,3 +56,27 @@
         </tbody>
     </table>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            title: '<strong>NOTE!</strong>',
+            html: '<strong>Academic Years can not be deleted!<br>The latest admission date is what the new students will be assigned to</strong>',
+            icon: "warning",
+            showClass: {
+                popup: `
+          animate__animated
+          animate__fadeInUp
+          animate__faster
+        `
+            },
+            hideClass: {
+                popup: `
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
+        `
+            }
+        });
+    });
+</script>
+</script>

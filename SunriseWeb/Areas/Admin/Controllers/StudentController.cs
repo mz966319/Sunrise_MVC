@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Sunrise.DataAccess.Repository.IRepository;
 using Sunrise.Models;
 using Sunrise.Models.ViewModels;
+using Sunrise.Utility;
 
 namespace SunriseWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Super_Admin)]
     public class StudentController : Controller
     {
 
@@ -24,14 +27,20 @@ namespace SunriseWeb.Areas.Admin.Controllers
             return View(objectStudentList);
         }
 
-        public IActionResult Upsert(int? id)
+        public IActionResult Upsert(string? id)
         {
 
             StudentViewModel studentViewModel = new()
             {
                 CurrentUser = "moaz",
 
-                GradeList = _unitOfWork.Grade.GetAll().Select(u => new SelectListItem
+                CurrentGradeList = _unitOfWork.Grade.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.GradeName,
+                    Value = u.GradeID.ToString()
+
+                }),
+                TmpGradeList = _unitOfWork.Grade.GetAll().Select(u => new SelectListItem
                 {
                     Text = u.GradeName,
                     Value = u.GradeID.ToString()
@@ -67,7 +76,7 @@ namespace SunriseWeb.Areas.Admin.Controllers
             };
 
 
-            if (id == null || id == 0)
+            if (id == null)
             {
                 //create
                 return View(studentViewModel);
@@ -75,14 +84,22 @@ namespace SunriseWeb.Areas.Admin.Controllers
             else
             {
                 //update
-                studentViewModel.Student = _unitOfWork.Student.Get(u => u.StudentID == id, includeProperties: "CurrentClass");
-                studentViewModel.GradeID = studentViewModel.Student.CurrentClass.GradeID;
-                studentViewModel.ClassList = _unitOfWork.GradeClass.GetList(u => u.GradeID == studentViewModel.GradeID).Select(u => new SelectListItem
+                studentViewModel.Student = _unitOfWork.Student.Get(u => u.StudentID == id, includeProperties: "CurrentClass,TemporaryClass");
+                studentViewModel.CurrentGradeID = studentViewModel.Student.CurrentClass.GradeID;
+                studentViewModel.CurrentClassList = _unitOfWork.GradeClass.GetList(u => u.GradeID == studentViewModel.CurrentGradeID).Select(u => new SelectListItem
                 {
                     Text = u.ClassName.ToString(),
                     Value = u.GradeClassID.ToString()
 
                 });
+                studentViewModel.TmpGradeID = studentViewModel.Student.TemporaryClass?.GradeID??0;
+                studentViewModel.TmpClassList = _unitOfWork.GradeClass.GetList(u => u.GradeID == studentViewModel.TmpGradeID).Select(u => new SelectListItem
+                {
+                    Text = u.ClassName.ToString(),
+                    Value = u.GradeClassID.ToString()
+
+                });
+
                 return View(studentViewModel);
             }
         }
@@ -93,9 +110,9 @@ namespace SunriseWeb.Areas.Admin.Controllers
  
             if (ModelState.IsValid)
             {
-                if (student.StudentID == null || student.StudentID == 0)
+                if (student.StudentID == null)
                 {
-                    _unitOfWork.Student.Add(student);
+                    _unitOfWork.Student.AddStudent(student);
                 }
                 else
                 {
@@ -108,7 +125,7 @@ namespace SunriseWeb.Areas.Admin.Controllers
 
             }
             else
-                return View();
+                return View(student);
 
         }
 
@@ -151,6 +168,13 @@ namespace SunriseWeb.Areas.Admin.Controllers
                 .ToList();
 
             return Json(objectGradeClassList);
+        }
+        public IActionResult CreatePDF()
+        {
+            List<Student> students = _unitOfWork.Student.GetList(u => u.StudentActiveFlag == SD.Student_Status_Active, includeProperties: "Bus,CurrentClass,CurrentClass.Grade").OrderBy(u =>u.StudentNameEN).ToList();
+            var pdfBytes = new StudentsPDF(students).GeneratePdf();
+            Response.Headers.Add("Content-Disposition", "inline; filename=Students.pdf");
+            return File(pdfBytes, "application/pdf");
         }
 
     }

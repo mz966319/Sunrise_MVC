@@ -16,12 +16,16 @@ namespace Sunrise.Models.ViewModels
         public IEnumerable<SelectListItem> PreviousSchoolList { get; set; }
         public IEnumerable<SelectListItem> BusList { get; set; }
 
-        public int GradeID { get; set; }
-        public IEnumerable<SelectListItem>? GradeList { get; set; }
+        public int CurrentGradeID { get; set; }
+        public IEnumerable<SelectListItem>? CurrentGradeList { get; set; }
 
-        public int ClassID { get; set; }
-        public IEnumerable<SelectListItem>? ClassList { get; set; }
+        public int CurrentClassID { get; set; }
+        public IEnumerable<SelectListItem>? CurrentClassList { get; set; }
 
+        public int TmpGradeID { get; set; }
+        public IEnumerable<SelectListItem>? TmpGradeList { get; set; }
 
+        public int TmpClassID { get; set; }
+        public IEnumerable<SelectListItem>? TmpClassList { get; set; }
     }
 }

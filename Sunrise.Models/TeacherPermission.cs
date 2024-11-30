@@ -14,6 +14,8 @@ namespace Sunrise.Models
     {
         [Key]
         public int TeacherPermissionID { get; set; }
+        
+        public string PermissionType { get; set; }
 
         [Required]
         public string UserID { get; set; }

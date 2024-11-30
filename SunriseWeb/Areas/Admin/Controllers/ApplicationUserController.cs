@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sunrise.DataAccess.Repository;
 using Sunrise.DataAccess.Repository.IRepository;
 using Sunrise.Models;
+using Sunrise.Utility;
 
 namespace SunriseWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Super_Admin)]
     public class ApplicationUserController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -17,16 +20,12 @@ namespace SunriseWeb.Areas.Admin.Controllers
             _unitOfWork = unitOfWork;
             _userManager = userManager;
         }
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-
-
 
         public async Task<IActionResult> Index()
         {
-            List<ApplicationUser> objectUsersList = _unitOfWork.ApplicationUser.GetAll().OrderBy(x => x.userType).ToList();
+            var user = await _userManager.GetUserAsync(User);
+            string CurrentUserID = user?.Id;
+            List<ApplicationUser> objectUsersList = _unitOfWork.ApplicationUser.GetAll().Where(u => u.userType != SD.Role_Super_Admin).Where(u=> u.Id != CurrentUserID).OrderBy(x => x.userType).ToList();
             return View(objectUsersList);
         }
 
@@ -34,32 +33,16 @@ namespace SunriseWeb.Areas.Admin.Controllers
         {
             var users = _userManager.Users;
             return await users.ToListAsync(); // Use ToListAsync for async operation
-            // Get all users from the UserManager
-            //var users = _userManager.Users;
-            //return await Task.FromResult(users.ToList());
         }
 
 
 
-        public IActionResult GetAll()
-        {
-            List<ApplicationUser> objectUsersList = _unitOfWork.ApplicationUser.GetAll().ToList();
-            return Json(new { data = objectUsersList });
-        }
-
-
-        //public IActionResult Index()
+        //public IActionResult GetAll()
         //{
         //    List<ApplicationUser> objectUsersList = _unitOfWork.ApplicationUser.GetAll().ToList();
-        //    return View(objectUsersList);
+        //    return Json(new { data = objectUsersList });
         //}
 
-        //private List<IdentityUser> GetUsersAsync()
-        //{
-        //    // Get all users from the UserManager
-        //    var users = _userManager.Users;
-        //    return users.ToList();
-        //}
 
 
         public async Task<IActionResult> LockoutUser(string id)
@@ -68,9 +51,8 @@ namespace SunriseWeb.Areas.Admin.Controllers
             if (user != null)
             {
                 // Lockout user until a specific date/time (e.g., 1 hour from now)
-                await _userManager.SetLockoutEndDateAsync(user, DateTime.Now.AddMinutes(2));
+                await _userManager.SetLockoutEndDateAsync(user, DateTime.Now.AddDays(1000));
                 return RedirectToAction("Index", "ApplicationUser");
-                //return Ok("User has been locked out.");
             }
             return NotFound("User not found.");
         }
@@ -79,10 +61,9 @@ namespace SunriseWeb.Areas.Admin.Controllers
             var user = await _userManager.FindByIdAsync(id);
             if (user != null)
             {
-                // Lockout user until a specific date/time (e.g., 1 hour from now)
+                // Unlockout user
                 await _userManager.SetLockoutEndDateAsync(user, null);
                 return RedirectToAction("Index", "ApplicationUser");
-                //return Ok("User has been locked out.");
             }
             return NotFound("User not found.");
         }

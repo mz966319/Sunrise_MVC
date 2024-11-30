@@ -12,9 +12,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options=> 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+//        sqlServerOptionsAction: sqlOptions =>
+//        {
+//            sqlOptions.EnableRetryOnFailure(
+//                maxRetryCount: 5, // Number of retries before failing
+//                maxRetryDelay: TimeSpan.FromSeconds(10), // Maximum delay between retries
+//                errorNumbersToAdd: null // List of additional error numbers that need retry logic, can be null
+//            );
+//        }));
 
 
 builder.Services.AddIdentity<IdentityUser,IdentityRole>(/*options => options.SignIn.RequireConfirmedAccount = true*/).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
@@ -40,6 +49,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<UserManager<IdentityUser>>();
+
 
 var app = builder.Build();
 
@@ -72,15 +83,13 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{area=Teacher}/{controller=Home}/{action=Index}/{id?}");
 
-
-
 app.Run();
 
 
 async Task SeedDefaultUserAsync(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
 {
     // Define the default role and user details
-    string roleName = SD.Role_Admin;
+    string roleName = SD.Role_Super_Admin;
     string userName = "admin";
     //string userEmail = "admin@example.com";
     string userPassword = "pass";

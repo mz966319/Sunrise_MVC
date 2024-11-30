@@ -23,9 +23,9 @@ namespace Sunrise.Models
         public YearSemester? YearSemester { get; set; }
 
 
-        public int GradeID { get; set; }
-
-        public int StudentID { get; set; }
+        public int ClassID { get; set; }
+       
+        public string StudentID { get; set; }
 
         [ForeignKey("StudentID")]
         [ValidateNever]
@@ -37,38 +37,41 @@ namespace Sunrise.Models
         [ValidateNever]
         public Subject? Subject { get; set; }
 
-        [Required]
         [DisplayName("Quiz 1")]
+        [Range(0, 20, ErrorMessage = "0 - 20")]
         public int Quiz1 { get; set; }
 
-        [Required]
         [DisplayName("Quiz 2")]
-        public int Quiz2 { get; set; }
+        [Range(0, 10, ErrorMessage = "0 - 10")]
+        public int? Quiz2 { get; set; }
 
-        [Required]
         [DisplayName("Quiz 3")]
-        public int Quiz3 { get; set; }
+        public int? Quiz3 { get; set; }
 
         [Required]
         [DisplayName("Class Work")]
-        public int ClassWork { get; set; }
+        [Range(0, 15, ErrorMessage = "0 - 15")]
+
+        public int ClassWork { get; set; } = 0;
 
         [Required]
         [DisplayName("Home Work")]
-        public int HomeWork { get; set; }
+        [Range(0, 15, ErrorMessage = "0 - 15")]
+        public int HomeWork { get; set; } = 0;
+
+        public int? Behaviour { get; set; }
 
         [Required]
-        public int Behaviour { get; set; }
+        [Range(0, 10, ErrorMessage = "0 - 10")]
+        public int Project { get; set; } = 0;
 
-        [Required]
-        public int Project { get; set; }
-
-        [Required]
-        public int Practical { get; set; }
+        public int? Practical { get; set; }
 
         [Required]
         [DisplayName("Exam Mark")]
-        public int ExamMark { get; set; }
+        [Range(0, 40, ErrorMessage = "0 - 40")]
+
+        public int ExamMark { get; set; }= 0;
         [Required]
         public bool Absent { get; set; }
 

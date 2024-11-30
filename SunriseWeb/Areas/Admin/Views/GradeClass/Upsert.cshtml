@@ -29,14 +29,28 @@
                             </select>
                             <span asp-validation-for="GradeClass.GradeID" class="text-danger"></span>
                         </div>
+                        <div class="col-6 form-label mb-3">
+                            <label class="form-label" asp-for="GradeClass.SectionName"></label>
+                            <select class="form-select" asp-for="GradeClass.SectionName">
+                                <option>@SD.Boys</option>
+                                <option>@SD.Girls</option>
+                            </select>
+                        </div> 
                     }
                     else
                     {
-                        <div class="col-3"></div>
+                        @* <div class="col-3"></div> *@
                         <div class="col-6 mb-3">
                             <label class="form-label pb-2" asp-for="GradeClass.ClassName"></label>
                             <input asp-for="GradeClass.ClassName" class="form-control" placeholder="">
                             <span asp-validation-for="GradeClass.ClassName" class="text-danger"></span>
+                        </div>
+                        <div class="col-6 form-label mb-3">
+                            <label class="form-label pb-2" asp-for="GradeClass.SectionName"></label>
+                            <select class="form-select" asp-for="GradeClass.SectionName">
+                                <option>@SD.Boys</option>
+                                <option>@SD.Girls</option>
+                            </select>
                         </div>
                         <input asp-for="@Model.GradeClass.GradeID" hidden />
 

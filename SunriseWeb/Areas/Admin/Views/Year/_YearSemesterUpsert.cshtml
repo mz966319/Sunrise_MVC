@@ -22,50 +22,52 @@
     <thead>
         <tr>
             <th hidden></th>
-            <th>Semester Number</th>
+            <th style=" width: 65px">Semester Number</th>
             <th>Semester Name EN</th>
             <th>اسم الفصل الدراسي</th>
-            <th>Quiz Count</th>
-            <th>Final Mark</th>
+            <th style=" width: 65px">Quiz Count</th>
+            <th style=" width: 75px">Final Mark</th>
             <th>Active</th>
         </tr>
     </thead>
     <tbody>
         @* @foreach (var semester in Model.OrderBy(u => u.YearID)) *@
-
-        @for (int i = 0; i < Model.Count; i++)
+        @if (Model[0].YearSemesterID != 0)
         {
-            <tr>
-                <td hidden>
-                    <input asp-for="@Model[i].YearSemesterID" type="hidden"/>
-                    <input asp-for="@Model[i].YearID" type="hidden" />
-                </td>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td hidden>
+                        <input asp-for="@Model[i].YearSemesterID" type="hidden"/>
+                        <input asp-for="@Model[i].YearID" type="hidden" />
+                    </td>
 
-                <td>
-                    <input asp-for="@Model[i].SemesterNumber" class="form-control form-control-sm w-100" />
-                    <span asp-validation-for="@Model[i].SemesterNumber" class="text-danger"></span>
-                </td>
-                <td>
-                    <input asp-for="@Model[i].SemesterNameEN" class="form-control form-control-sm w-100" />
-                  <span asp-validation-for="@Model[i].SemesterNameEN" class="text-danger"></span>
-                </td>
-                <td>
-                    <input asp-for="@Model[i].SemesterNameAR" class="form-control form-control-sm w-100" />
-                     <span asp-validation-for="@Model[i].SemesterNameAR" class="text-danger"></span>
-                </td>
-                <td>
-                    <input asp-for="@Model[i].QuizCount" type="number" class="form-control form-control-sm w-100" />
-                    <span asp-validation-for="@Model[i].QuizCount" class="text-danger"></span>
-                </td>
-                <td>
-                    <input asp-for="@Model[i].FinalMark" type="number" class="form-control form-control-sm w-100" />
-                    <span asp-validation-for="@Model[i].FinalMark" class="text-danger"></span>
-                </td>
-                <td>
-                    <input asp-for="@Model[i].ActiveFlag" type="checkbox" class="form-check-input" />
-                    <span asp-validation-for="@Model[i].ActiveFlag" class="text-danger"></span>
-                </td>
-            </tr>
+                    <td>
+                        <input asp-for="@Model[i].SemesterNumber" class="form-control form-control-sm w-100" />
+                        <span asp-validation-for="@Model[i].SemesterNumber" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="@Model[i].SemesterNameEN" class="form-control form-control-sm w-100" />
+                        <span asp-validation-for="@Model[i].SemesterNameEN" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="@Model[i].SemesterNameAR" class="form-control form-control-sm w-100" />
+                        <span asp-validation-for="@Model[i].SemesterNameAR" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="@Model[i].QuizCount" type="number" class="form-control form-control-sm w-100" />
+                        <span asp-validation-for="@Model[i].QuizCount" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="@Model[i].FinalMark" type="number" class="form-control form-control-sm w-100" />
+                        <span asp-validation-for="@Model[i].FinalMark" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="@Model[i].ActiveFlag" type="checkbox" class="form-check-input" />
+                        <span asp-validation-for="@Model[i].ActiveFlag" class="text-danger"></span>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
@@ -81,6 +83,6 @@
 </div>
 @section Scripts{
     @{
-        <partial name="_ValidationScriptsPartial"/>
+        <partial name="_ValidationScriptsPartial" />
     }
 }

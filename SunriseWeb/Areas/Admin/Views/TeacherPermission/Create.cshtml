@@ -15,9 +15,10 @@
         <div class="col-12 border p-3">
 
 
+            <input asp-for="@Model.GradesList" value="@Model.GradesList" asp type="hidden"/>
+            <input asp-for="@Model.SubjectsList" value="@Model.SubjectsList" type="hidden"/>
 
 
-            <!-- Grade, Class -->
             <div class="row">
                 <!-- Grade Dropdown -->
                 <div class="col-12 col-md-4 mb-3">
@@ -43,7 +44,7 @@
                     </select>
                     <span asp-validation-for="@Model.ClassID" class="text-danger"></span>
                 </div>
-                <!-- Class Dropdown -->
+                <!-- Subject Dropdown -->
                 <div class="col-12 col-md-4 mb-3">
                     <label class="form-label" for="subjectSelect">Subject</label>
                     <select id="subjectID"
@@ -54,27 +55,26 @@
                     </select>
                     <span asp-validation-for="@Model.SubjectID" class="text-danger"></span>
                 </div>
-
-
             </div>
-
-
-
-
-
-
-
-
-
-            <!-- Submit and Back Buttons -->
-            <div class="row pt-3">
-                <div class="col-4">
-                    
-
-                    <button type="submit" class="btn btn-outline-primary btn-md w-50 w-sm-auto me-2">Create</button> <!-- Added responsive width classes -->
+            <div class="row">
+                <!-- Permission Type Dropdown -->
+                <div class="col-12 col-md-4 mb-3">
+                    <label class="form-label" for="subjectSelect">Permission Type</label>
+                    <select id="subjectID"
+                            asp-for="@Model.PermissionType"
+                            class="form-select form-select-sm">
+                        <option>@SD.Permission_Edit</option>
+                        <option>@SD.Permission_View</option>
+                    </select>
+                    <span asp-validation-for="@Model.PermissionType" class="text-danger"></span>
                 </div>
             </div>
 
+            <!-- Submit and Back Buttons -->
+            <div class="pt-3">
+                <button type="submit" class="btn btn-outline-primary btn-md w-20 w-sm-auto me-2">Create</button>
+                <a asp-controller="TeacherPermission" asp-action="Index" asp-route-id="@Model.UserID" class="btn btn-outline-light float-end">Back</a>
+            </div>
         </div>
     </form>
 

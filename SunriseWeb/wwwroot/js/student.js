@@ -1,11 +1,64 @@
 ﻿
 $(document).ready(function () {
-    //loadDataTOClassDropDown($('#GradeID'));
+    $('#TmpGradeID').on('change', function () {
+        loadDataTOTmpClassDropDown(this);
+    });
+});
+
+function loadDataTOTmpClassDropDown(id) {
+    var gradeID = $(id).val();
+    var classList = $('#tmpClassID');
+    classList.empty();
+    classList.append('<option disabled selected>--Select Class--</option>');
+    if (gradeID !== '') {
+        $.ajax({
+            url: '/Admin/Student/GetClassByGradeId?gradeId=' + gradeID,
+            success: function (classes) {
+                $.each(classes, function (i, classItem) {
+                    classList.append($('<option></option>').attr('value', classItem.gradeClassID).text(classItem.className));
+                });
+            },
+            error: function () {
+                alert('something went wrong!');
+            }
+        });
+    }
+}
+
+
+
+$(document).ready(function () {
+    showTmpClassDropDowns($('#tmpCheckBox')[0]);
+});
+$('#tmpCheckBox').change(function () { // When Bus checkbox is toggled
+    showTmpClassDropDowns(this);
+});
+
+function showTmpClassDropDowns(btn) {
+    console.log(btn);
+    if (btn.checked || btn.val == true) {
+        //$('#busSelect1, #busSelect2').prop('type', ""); // Enable dropdowns
+
+        $('#tmpOptions').removeClass('d-none'); // Show dropdowns
+        $('#TmpGradeID, #tmpClassID').prop('disabled', false); // Enable dropdowns
+    } else {
+        //$('#busSelect1, #busSelect2').prop('type', "hidden");//.val(''); // Disable and reset dropdowns
+
+        $('#tmpOptions').addClass('d-none'); // Hide dropdowns
+        $('#TmpGradeID, #tmpClassID').prop('disabled', true);//.val(''); // Disable and reset dropdowns
+    }
+}
+
+
+
+
+
+
+$(document).ready(function () {
     $('#GradeID').on('change', function () {
         loadDataTOClassDropDown(this);
     });
 });
-
 
 function loadDataTOClassDropDown(id) {
     var gradeID = $(id).val();
@@ -25,7 +78,6 @@ function loadDataTOClassDropDown(id) {
             }
         });
     }
-
 }
 
 $(document).ready(function () {
@@ -62,7 +114,6 @@ function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": { url: '/admin/student/getall' },
         "columns": [
-            { data: 'studentID', "width": "5%" },
             { data: 'studentNameEN', "width": "15%" },
             { data: 'currentClass.grade.gradeName', "width": "15%" },
             { data: 'currentClass.className', "width": "15%" }, 

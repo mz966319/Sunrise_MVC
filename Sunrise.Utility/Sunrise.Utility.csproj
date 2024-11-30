@@ -8,9 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="7.4.1" />
+    <PackageReference Include="QuestPDF" Version="2024.10.2" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.10" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sunrise.DataAccess\Sunrise.DataAccess.csproj" />
     <ProjectReference Include="..\Sunrise.Models\Sunrise.Models.csproj" />
   </ItemGroup>
 

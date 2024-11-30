@@ -15,11 +15,59 @@
         </div>
 
     </div>
+    <form action="/Admin/Student/CreatePDF" target="_blank" method="get">
+        <button type="submit" class="btn btn-primary">View PDF Report</button>
+    </form>
 
-    <table id="tblData" class="table table-bordered table-striped table-hover" style="width:100%">
+    <ul class="nav nav-tabs mb-2 mt-3" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" data-bs-toggle="tab" href="#all" aria-selected="true" role="tab">All</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" data-bs-toggle="tab" href="#profile" aria-selected="false" role="tab" tabindex="-1">Active</a>
+        </li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active show" id="all" role="tabpanel">
+            <table id="tblData" class="table table-bordered table-striped table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Grade</th>
+                        <th>Class</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel">
+            <table id="tblData" class="table table-bordered table-striped table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Grade</th>
+                        <th>Class</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>22</td>
+                        <td>33</td>
+                        <td>33</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    @* <table id="tblData" class="table table-bordered table-striped table-hover" style="width:100%">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Student Name</th>
                 <th>Grade</th>
                 <th>Class</th>
@@ -28,7 +76,7 @@
 
             </tr>
         </thead>
-    </table>
+    </table> *@
 </div>
 
 @section Scripts {
